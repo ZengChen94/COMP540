@@ -127,7 +127,7 @@ class LogisticRegressor:
         # TODO: 1 line of code expected                                           #
         ###########################################################################
 
-        y_pred = utils.sigmoid(np.dot(X, self.theta))
+        y_pred = np.round(utils.sigmoid(np.dot(X, self.theta)))
 
         ###########################################################################
         #                           END OF YOUR CODE                              #
@@ -213,7 +213,7 @@ class RegLogisticRegressor:
         # TODO: 1-2 lines of code expected                                       #
         ##########################################################################
         h = utils.sigmoid(np.dot(X, theta))
-        J = np.sum(-np.dot(y, np.log(h)) - np.dot(1 - y, np.log(1 - h))) / m + reg * np.sum(theta**2) / (2 * m)
+        J = np.sum(-np.dot(y, np.log(h)) - np.dot(1 - y, np.log(1 - h))) / m + reg * np.sum(theta[1:]**2) / (2 * m)
 
         ###########################################################################
         #                           END OF YOUR CODE                              #
@@ -271,7 +271,7 @@ class RegLogisticRegressor:
         # TODO: 1 line of code expected                                           #
         #                                                                         #
         ###########################################################################
-        y_pred = utils.sigmoid(np.dot(X, self.theta))
+        y_pred = np.round(utils.sigmoid(np.dot(X, self.theta)))
 
         ###########################################################################
         #                           END OF YOUR CODE                              #

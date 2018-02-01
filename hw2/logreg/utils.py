@@ -87,7 +87,6 @@ def bin_features(X):
 # Do this for each lambda in the range and pick the best one
 #
 def select_lambda_crossval(X,y,lambda_low,lambda_high,lambda_step,penalty):
-
     best_lambda = lambda_low
 
     # Your code here
@@ -100,10 +99,11 @@ def select_lambda_crossval(X,y,lambda_low,lambda_high,lambda_step,penalty):
         for train_index, test_index in kf.split(X):
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
-            sk_logreg = linear_model.LogisticRegression(C=1.0 / lambda_cur, solver=type, fit_intercept=False)
+            sk_logreg = linear_model.LogisticRegression(penalty=penalty, C=1.0 / lambda_cur, solver=type, fit_intercept=True)
             sk_logreg.fit(X_train, y_train)
             predy = sk_logreg.predict(X_test)
-            accuracy += float(np.sum(np.round(predy) == y)) / len(y)
+            accuracy += np.mean(predy==y_test)
+
         accuracy /= 10
         if accuracy > best_accuracy:
             best_accuracy = accuracy

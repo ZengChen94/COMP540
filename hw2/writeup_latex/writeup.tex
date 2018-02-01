@@ -118,7 +118,7 @@ Assume z is a nonezero vector with the size n $\times$ 1, X is a m $\times$ n fu
 
 \begin{equation*}
 \begin{aligned}
-z^{T}Hz &= z^{T}X^{T}SXz \\ &= (Xz)^{T}H(Xz) \\ &=\sum_{i=1}^{m}S_{i,i}\sum_{j=1}^{k}(x_{j}z_{j})^{2}\\&\geq 0
+z^{T}Hz &= z^{T}X^{T}SXz \\ &= (Xz)^{T}H(Xz) \\ &=\sum_{i=1}^{m}S_{i,i}(\sum_{j=1}^{k}x_{j}z_{j})^{2}\\&> 0
 \end{aligned}
 \end{equation*}
 
@@ -131,7 +131,7 @@ So H is positive definite.
 
 \paragraph{\textbf{Answer3}}True. For example, if the data points of two classes are linear separable in 2-dimension plane and a single line L crossing the origin can separate them into two classes, the line L can be represented as ax + by = 0 and the coefficients a and b can be infinite.
 
-\paragraph{\textbf{Answer4}}False. The $\lambda$ term determines the relative importance of the first term and the penalty term on $\theta$. Thus, the first term of J($\theta$) always decrease as we increase $\lambda$.
+\paragraph{\textbf{Answer4}}False. As $\lambda$ increases from zero, the model will experience from overfitting, fitting, to unfitting. It means the model will becomes better at first and then becomes worse. This is the abstract changing of the model as $\lambda$ increases and some of the detailed changing is not predictable. The first term of $J$ is NLL, which is used to judge whether the model is good or not. Therefore, as $\lambda$ increases, the first term of $J$ will not always increses.
 
 \section{Implementing a k-nearest-neighbor classifier} Please help to refer to the knn folder.
 
@@ -161,7 +161,8 @@ So H is positive definite.
 
 \paragraph{\textbf{Problem 3 Part C: Fitting regularized logistic regression models (L2 and L1)}}
 \begin{itemize}
-	\item L2 regularization and log transformation is the best combination for logistic regression model on for this data set for the reason that it has the highest accuracy 0.94140625 on the test set with the best lambda 0.1.
+	\item 
+We'd like to recommend to use L1 regularization. The accuracy with these two regularization are similar, while it equals to 0.943359375 when we use L2 regularization and it equals to 0.944010416667 when we use L1 regularization. However, L1 regularization leads more $\theta$ to be exactly zero which make the parameters to be sparser.
 \end{itemize}
 
 \end{document}
