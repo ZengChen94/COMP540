@@ -1,0 +1,249 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage{graphicx}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize
+\textsc{Rice University, Department of Computer Science} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Assignment 3, COMP 540 \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Chen Zeng(cz39), Zhihui Xie(zx18)} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{MAP and MLE parameter estimation}
+
+\paragraph{\textbf{Answer1}}
+According to the properties of Bernoulli Distribution, we can get:
+\begin{equation*}
+P\left ( D | \theta  \right )=\theta ^{\sum x^{\left ( i \right )}}\left ( 1-\theta  \right )^{m-\sum x^{\left ( i \right )}}
+\end{equation*}
+According to the principle of maximum likelihood, we can get:
+\begin{equation*}
+\theta _{MLE}^{\ast}=argmax_{\theta }logP\left ( D|\theta  \right )=argmax_{\theta }\left ( \sum x^{\left ( i \right )}log\theta +\left ( m-\sum x^{\left ( i \right )} \right )log\left ( 1-\theta  \right ) \right )
+\end{equation*}
+Make the derivation of $logP\left ( D|\theta  \right )$ on $\theta$ and make it equal to 0, we can get the result:
+\begin{equation*}
+\theta _{MLE}^{\ast} =\frac{\sum x^{\left ( i \right )}}{m}
+\end{equation*}
+This is the estimate of $\theta$.
+
+\paragraph{\textbf{Answer2}}
+Because of:
+\begin{equation*}
+Beta\left ( \theta | a, b \right )\propto \theta ^{a-1}\left ( 1-\theta  \right )^{b-1}
+\end{equation*}
+Therefore:
+\begin{equation*}
+P\left ( \theta |D \right )\propto P\left ( D|\theta  \right )P\left ( \theta  \right )\propto \left ( \theta ^{\sum x^{\left ( i \right )}}\left ( 1-\theta  \right )^{m-\sum x^{\left ( i \right )}} \right )\left ( \theta ^{a-1}\left ( 1-\theta  \right )^{b-1} \right )=\theta ^{\sum x^{\left ( i \right )}+a-1}\left ( 1-\theta  \right )^{m+b-\sum x^{\left ( i \right )}-1}
+\end{equation*}
+According to the MAP estimation of $\theta$, we can get:
+\begin{equation*}
+\theta_{MAP}=argmax_{\theta }logP\left ( \theta |D \right )=argmax_{\theta }\left ( \left ( \sum x^{\left ( i \right )}+a-1 \right )log\theta +\left ( m+b-\sum x^{\left ( i \right )}-1 \right )log\left ( 1-\theta  \right ) \right )
+\end{equation*}
+Make the derivation of $logP\left ( \theta|D  \right )$ on $\theta$ and make it equal to 0, we can get the result:
+\begin{equation*}
+\theta _{MAP}^{\ast} =\frac{a+\sum x^{\left ( i \right )}-1}{a+b+m-2}
+\end{equation*}
+When it's under a uniform prior, $a=b=1$, we can get:
+\begin{equation*}
+\theta _{MAP}^{\ast} =\frac{\sum x^{\left ( i \right )}}{m}
+\end{equation*}
+Combing the answer from problem1, we can get:
+\begin{equation*}
+\theta _{MLE}^{\ast} =\theta _{MAP}^{\ast}
+\end{equation*}
+Therefore, the MAP and MLE estimates of $\theta$ are the same under a uniform prior.
+
+\section{Logistic regression and Gaussian Naive Bayes}
+
+\paragraph{\textbf{Answer1}}
+We can easily get the results from the logistic regression shown as below:
+\begin{equation*}
+P\left ( y=1|x \right )=g\left ( \theta ^{T}x \right )
+\end{equation*}
+\begin{equation*}
+P\left ( y=0|x \right )=1-g\left ( \theta ^{T}x \right )
+\end{equation*}
+They are the expression in terms of the parameter $\theta$ and the sigmoid function.
+
+\paragraph{\textbf{Answer2}}
+At first, we define the const $A$ as below:
+\begin{equation*}
+A =\frac{1}{P\left ( x,y^{'}=1 \right ) +P\left ( x,y^{'}=0 \right )}=\frac{1}{P\left ( x|y^{'}=1 \right )\gamma +P\left ( x|y^{'}=0 \right )\left ( 1-\gamma \right )}
+\end{equation*}
+Then, according to the Bayes rule, and the definition and properties of Gaussian distribution and Gaussian Naive Bayes model, we can get the results:
+\begin{equation*}
+P\left ( y=1|x \right )=\frac{P\left ( x|y=1 \right )P\left ( y=1 \right )}{\sum_{y^{'}\in \left \{ 0,1 \right \}}P\left ( x|y^{'} \right )P\left ( y^{'} \right )}=A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )
+\end{equation*}
+\begin{equation*}
+P\left ( y=0|x \right )=\frac{P\left ( x|y=0 \right )P\left ( y=0 \right )}{\sum_{y^{'}\in \left \{ 0,1 \right \}}P\left ( x|y^{'} \right )P\left ( y^{'} \right )}=A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )
+\end{equation*}
+Here const $A$ is defined at the beginning.
+
+\paragraph{\textbf{Answer3}}
+Because class 1 and class 0 are equally likely, $\gamma=\frac{1}{2}$. Therefore, to simplify the expression for $P\left ( y=1|x \right )$, we can get:
+\begin{equation*}
+P\left ( y=1|x \right )=\frac{A}{2}\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )
+\end{equation*}
+For the definition of const $A$:
+\begin{equation*}
+A =\frac{1}{P\left ( x,y^{'}=1 \right ) +P\left ( x,y^{'}=0 \right )}=\frac{2}{P\left ( x|y^{'}=1 \right ) +P\left ( x|y^{'}=0 \right )}
+\end{equation*}
+Let's divide $P\left ( y=1|x \right )$ with $P\left ( y=0|x \right )$, using the formation in problem2, we can get:
+\begin{align*}
+\frac{P\left ( y=1|x \right )}{P\left ( y=0|x \right )}
+&= \frac{A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )}{A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )}
+\\&= exp\left ( \sum_{j=0}^{d} \left (  -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} +\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )\right )
+\\&= exp\left ( \sum_{j=0}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}+\sum_{j=0}^{d}\frac{x^{\left ( j \right )}\left ( \mu _{j}^{1}-\mu_{j}^{0} \right )}{\sigma _{j}^{2}} \right )
+\end{align*}
+According to the answer of problem1, we have:
+\begin{equation*}
+\frac{P\left ( y=1|x \right )}{P\left ( y=0|x \right )}=\frac{g\left ( \theta ^{T}x \right )}{1-g\left ( \theta ^{T}x \right )}=exp\left ( \theta ^{T}x \right )
+\end{equation*}
+These two are equal and comparing them, we can get the appropriate parameterization:
+\begin{equation*}
+\sum_{j=0}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}=0
+\end{equation*}
+\begin{equation*}
+\frac{\mu _{j}^{1}-\mu_{j}^{0} }{\sigma _{j}^{2}}=\theta _{j}\left ( j=0,1,...,d \right )
+\end{equation*}
+Therefore, it shows that with appropriate parameterization, $P\left ( y=1|x \right )$ for Gaussian Naive Bayes with uniform priors is equivalent to $P\left ( y=1|x \right )$ for logistic regression.
+
+\section{Reject option in classifiers}
+
+\paragraph{\textbf{Answer1}}
+To calculate the minimum risk, we discuss it in the following two cases.
+\\ When $i=1,2,...,C$, we have:
+\begin{align*}
+R\left ( \alpha _{i}|x \right )
+&=\sum_{j=1}^{C}L\left ( \alpha _{i}|y=j \right )P\left ( y_{j}|x \right )
+\\&=\lambda _{s}\sum_{j=1,j\neq i}^{C}P\left ( y=j|x \right )
+\\&=\lambda _{s}\left ( 1-P\left ( y=i|x \right ) \right )
+\end{align*}
+When $i=C+1$, we have:
+\begin{align*}
+R\left ( \alpha _{C+1}|x \right )=\lambda _{r}
+\end{align*}
+Therefore, if we want to decide $y=j$ to obtain the minimum risk, the following two requirements should be fulfilled:
+\begin{align*}
+R\left ( \alpha _{j}|x \right )\leq R\left ( \alpha _{k}|x \right ),\left ( j,k=1,2,...,C \& j\neq k \right )
+\end{align*}
+\begin{align*}
+R\left ( \alpha _{j}|x \right )\leq R\left ( \alpha _{C+1}|x \right ),\left ( j=1,2,...,C \right )
+\end{align*}
+Combining with the results we get before, we need to solve the following two inequalities:
+\begin{align*}
+\lambda _{s}\left ( 1-P\left ( y=j|x \right ) \right )\leq \lambda _{s}\left ( 1-P\left ( y=k|x \right ) \right )
+\end{align*}
+\begin{align*}
+\lambda _{s}\left ( 1-P\left ( y=j|x \right ) \right )\leq \lambda _{r}
+\end{align*}
+Finally we get the results:
+\begin{align*}
+P\left ( y=j|x \right )\geq P\left ( y=k|x \right )
+\end{align*}
+\begin{align*}
+P\left ( y=j|x \right )\geq 1-\frac{\lambda_{r} }{\lambda_{s} }
+\end{align*}
+Therefore, if it fulfilled the above requirements, we decide $y=j$ to obtain the minimum risk.
+
+\paragraph{\textbf{Answer2}}
+When $\lambda _{r}=0$, which makes $\lambda _{r}/\lambda _{s}=0$, we do always reject. As it increases but not equal to 1, the relative cost of rejection increases, we are more likely not to reject. But at this moment, we still reject. When $\lambda _{r}/\lambda _{s}=1$, we can either reject or not to reject and the results will be the same.
+
+\section{Kernelizing k-nearest neighbors}
+
+\paragraph{\textbf{Answer}}
+To re-express this classification rule in terms of dot products, we have:
+\begin{align*}
+D=\sqrt{\sum \left ( \left ( X-Y \right )\cdot \left ( X-Y \right ) \right )}
+\end{align*}
+To make use of the kernel trick to formulate the k-nearest neighbor algorithm, we have:
+\begin{align*}
+D=K\left ( X,Y \right )
+\end{align*}
+
+\section{Constructing kernels}
+
+\paragraph{\textbf{Answer1}}
+According to the Mercer's theorem, if $k_{1}$ is a valid kernel, then the Gram matrix $K_{1}$ whose elements are $k_{1}\left ( x, x^{'} \right ),1\leq i,j\leq m$ is positive definite. According to the definition of positive definite, the scalar $z^{T}K_{1}z$ should always be positive for every non zero column vector $z$. Because we have $k\left ( x, x^{'} \right ),1\leq i,j\leq m=ck_{1}\left ( x, x^{'} \right ),1\leq i,j\leq m$, we can know the Gram matrix for $k$ is $K=cK_{1}$. So we have $z^{T}Kz=cz^{T}K_{1}z$. It should also be positive and $K$ should be positive definite if $c>0$. Therefore, according to the Mercer's theorem, under the case of $c>0$, $k$ should also be valid kernels.
+
+\paragraph{\textbf{Answer2}}
+Here $k\left ( x, x^{'} \right )$ may not be valid kernel and it depends on $f\left ( x \right )$. For example, if $f\left ( x \right )=0$, then $K$ will be a zero matrix and it's not positive definite. Therefore, according to the Mercer's theorem, under this case, $k$ is not a valid kernel. Also, if $f\left ( x \right )=1$ and then $k=k_{1}$. Under this case, $k$ is a valid kernel.
+
+\paragraph{\textbf{Answer3}}
+This is similar to answer1. Here $K=K_{1}+K_{2}$ and $z^{T}Kz=z^{T}K_{1}z+z^{T}K_{2}z>0$ for every non zero column vector $z$. According to the Mercer's theorem, $K$ is positive definite and therefore $k$ should also be valid kernels.
+
+\section{One-vs-all logistic regression}
+
+\paragraph{\textbf{Answer}}
+
+\section{Softmax regression}
+
+\paragraph{\textbf{Answer}}
+
+\end{document}
+
