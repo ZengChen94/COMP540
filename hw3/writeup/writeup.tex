@@ -85,7 +85,15 @@ According to the principle of maximum likelihood, we can get:
 \begin{equation*}
 \theta _{MLE}^{\ast}=argmax_{\theta }logP\left ( D|\theta  \right )=argmax_{\theta }\left ( \sum x^{\left ( i \right )}log\theta +\left ( m-\sum x^{\left ( i \right )} \right )log\left ( 1-\theta  \right ) \right )
 \end{equation*}
-Make the derivation of $logP\left ( D|\theta  \right )$ on $\theta$ and make it equal to 0, we can get the result:
+Make the derivation of $logP\left ( D|\theta  \right )$ on $\theta$ and make it equal to 0, we can get:
+\begin{equation*}
+\frac{\partial logP\left ( D|\theta  \right )}{\partial \theta }=\frac{\partial \left ( \sum x^{\left ( i \right )}log\theta +\left ( m-\sum x^{\left ( i \right )} \right )log\left ( 1-\theta  \right ) \right )}{\partial \theta }=\frac{\sum x^{\left ( i \right )}}{\theta }-\frac{\left ( m-\sum x^{\left ( i \right )} \right )}{1-\theta }=0
+\end{equation*}
+We can solve the result:
+\begin{equation*}
+\theta =\frac{\sum x^{\left ( i \right )}}{m}
+\end{equation*}
+Therefore, here is the final result:
 \begin{equation*}
 \theta _{MLE}^{\ast} =\frac{\sum x^{\left ( i \right )}}{m}
 \end{equation*}
@@ -104,7 +112,17 @@ According to the MAP estimation of $\theta$, we can get:
 \begin{equation*}
 \theta_{MAP}=argmax_{\theta }logP\left ( \theta |D \right )=argmax_{\theta }\left ( \left ( \sum x^{\left ( i \right )}+a-1 \right )log\theta +\left ( m+b-\sum x^{\left ( i \right )}-1 \right )log\left ( 1-\theta  \right ) \right )
 \end{equation*}
-Make the derivation of $logP\left ( \theta|D  \right )$ on $\theta$ and make it equal to 0, we can get the result:
+Make the derivation of $logP\left ( \theta|D  \right )$ on $\theta$ and make it equal to 0, we can get:
+\begin{align*}
+\frac{\partial logP\left ( \theta |D \right )}{\partial \theta }&=\frac{\partial \left ( \left ( \sum x^{\left ( i \right )}+a-1 \right )log\theta +\left ( m+b-\sum x^{\left ( i \right )}-1 \right )log\left ( 1-\theta  \right ) \right )}{\partial \theta }
+\\&=\frac{\sum x^{\left ( i \right )}+a-1}{\theta }-\frac{m+b-\sum x^{\left ( i \right )}-1}{1-\theta }
+\\&=0
+\end{align*}
+We can solve the result:
+\begin{equation*}
+\theta =\frac{a+\sum x^{\left ( i \right )}-1}{a+b+m-2}
+\end{equation*}
+Therefore, here is the final result:
 \begin{equation*}
 \theta _{MAP}^{\ast} =\frac{a+\sum x^{\left ( i \right )}-1}{a+b+m-2}
 \end{equation*}
@@ -137,17 +155,17 @@ A =\frac{1}{P\left ( x,y^{'}=1 \right ) +P\left ( x,y^{'}=0 \right )}=\frac{1}{P
 \end{equation*}
 Then, according to the Bayes rule, and the definition and properties of Gaussian distribution and Gaussian Naive Bayes model, we can get the results:
 \begin{equation*}
-P\left ( y=1|x \right )=\frac{P\left ( x|y=1 \right )P\left ( y=1 \right )}{\sum_{y^{'}\in \left \{ 0,1 \right \}}P\left ( x|y^{'} \right )P\left ( y^{'} \right )}=A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )
+P\left ( y=1|x \right )=\frac{P\left ( x|y=1 \right )P\left ( y=1 \right )}{\sum_{y^{'}\in \left \{ 0,1 \right \}}P\left ( x|y^{'} \right )P\left ( y^{'} \right )}=A \gamma\prod_{j=1}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )
 \end{equation*}
 \begin{equation*}
-P\left ( y=0|x \right )=\frac{P\left ( x|y=0 \right )P\left ( y=0 \right )}{\sum_{y^{'}\in \left \{ 0,1 \right \}}P\left ( x|y^{'} \right )P\left ( y^{'} \right )}=A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )
+P\left ( y=0|x \right )=\frac{P\left ( x|y=0 \right )P\left ( y=0 \right )}{\sum_{y^{'}\in \left \{ 0,1 \right \}}P\left ( x|y^{'} \right )P\left ( y^{'} \right )}=A \left ( 1-\gamma \right )\prod_{j=1}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )
 \end{equation*}
 Here const $A$ is defined at the beginning.
 
 \paragraph{\textbf{Answer3}}
 Because class 1 and class 0 are equally likely, $\gamma=\frac{1}{2}$. Therefore, to simplify the expression for $P\left ( y=1|x \right )$, we can get:
 \begin{equation*}
-P\left ( y=1|x \right )=\frac{A}{2}\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )
+P\left ( y=1|x \right )=\frac{A}{2}\prod_{j=1}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )
 \end{equation*}
 For the definition of const $A$:
 \begin{equation*}
@@ -156,20 +174,28 @@ A =\frac{1}{P\left ( x,y^{'}=1 \right ) +P\left ( x,y^{'}=0 \right )}=\frac{2}{P
 Let's divide $P\left ( y=1|x \right )$ with $P\left ( y=0|x \right )$, using the formation in problem2, we can get:
 \begin{align*}
 \frac{P\left ( y=1|x \right )}{P\left ( y=0|x \right )}
-&= \frac{A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )}{A \gamma\prod_{j=0}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )}
-\\&= exp\left ( \sum_{j=0}^{d} \left (  -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} +\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )\right )
-\\&= exp\left ( \sum_{j=0}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}+\sum_{j=0}^{d}\frac{x^{\left ( j \right )}\left ( \mu _{j}^{1}-\mu_{j}^{0} \right )}{\sigma _{j}^{2}} \right )
+&= \frac{A \gamma\prod_{j=1}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} \right )}{A \left ( 1-\gamma \right )\prod_{j=1}^{d}\frac{1}{\sqrt{2\pi \sigma _{j}^{2}}}exp\left ( -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )}
+\\&= exp\left ( \sum_{j=1}^{d} \left (  -\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}} +\frac{\left ( x^{\left ( j \right )}-\mu _{j}^{0} \right )^{2}}{2\sigma _{j}^{2}} \right )\right )
+\\&= exp\left ( \sum_{j=1}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}+\sum_{j=1}^{d}\frac{x^{\left ( j \right )}\left ( \mu _{j}^{1}-\mu_{j}^{0} \right )}{\sigma _{j}^{2}} \right )
 \end{align*}
 According to the answer of problem1, we have:
 \begin{equation*}
 \frac{P\left ( y=1|x \right )}{P\left ( y=0|x \right )}=\frac{g\left ( \theta ^{T}x \right )}{1-g\left ( \theta ^{T}x \right )}=exp\left ( \theta ^{T}x \right )
 \end{equation*}
-These two are equal and comparing them, we can get the appropriate parameterization:
+These two are equal and comparing them, we can get:
 \begin{equation*}
-\sum_{j=0}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}=0
+exp\left ( \sum_{j=1}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}+\sum_{j=1}^{d}\frac{x^{\left ( j \right )}\left ( \mu _{j}^{1}-\mu_{j}^{0} \right )}{\sigma _{j}^{2}} \right )=exp\left ( \theta ^{T}x \right )
+\end{equation*}
+It means we have the following equation:
+\begin{equation*}
+\sum_{j=1}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}+\sum_{j=1}^{d}\frac{x^{\left ( j \right )}\left ( \mu _{j}^{1}-\mu_{j}^{0} \right )}{\sigma _{j}^{2}}=\theta ^{T}x
+\end{equation*}
+Comparing the parameters to $x$, we can get the appropriate parameterization:
+\begin{equation*}
+\theta _{0}=\sum_{j=0}^{d}\frac{\left ( \mu _{j}^{0} \right )^{2}-\left ( \mu _{j}^{1} \right )^{2}}{2\sigma _{j}^{2}}
 \end{equation*}
 \begin{equation*}
-\frac{\mu _{j}^{1}-\mu_{j}^{0} }{\sigma _{j}^{2}}=\theta _{j}\left ( j=0,1,...,d \right )
+\theta _{j}=\frac{\mu _{j}^{1}-\mu_{j}^{0} }{\sigma _{j}^{2}}\left ( j=1,...,d \right )
 \end{equation*}
 Therefore, it shows that with appropriate parameterization, $P\left ( y=1|x \right )$ for Gaussian Naive Bayes with uniform priors is equivalent to $P\left ( y=1|x \right )$ for logistic regression.
 
@@ -217,14 +243,22 @@ When $\lambda _{r}=0$, which makes $\lambda _{r}/\lambda _{s}=0$, we do always r
 \section{Kernelizing k-nearest neighbors}
 
 \paragraph{\textbf{Answer}}
+According to the definition of the dot product of vector $x_{1}$ and vector $x_{2}$ from wikipedia, we have:
+\begin{align*}
+\left \langle x_{1},x_{2} \right \rangle=x_{1}\cdot x_{2}=\sum_{i=1}^{d}x_{1}^{\left ( i \right )}x_{2}^{\left ( i \right )}
+\end{align*}
 To re-express this classification rule in terms of dot products, we have:
 \begin{align*}
-D=\sqrt{\sum \left ( \left ( X-Y \right )\cdot \left ( X-Y \right ) \right )}
+d=&\sqrt{\left \| x_{1}-x_{2} \right \|^{2}}
+\\=&\sqrt{\sum_{i=1}^{d}\left ( x_{1}^{\left ( i \right )} -x_{2}^{\left ( i \right )}\right )^{2}}
+\\=&\sqrt{\sum_{i=1}^{d}x_{1}^{\left ( i \right )}x_{1}^{\left ( i \right )}+\sum_{i=1}^{d}x_{2}^{\left ( i \right )}x_{2}^{\left ( i \right )}-2\sum_{i=1}^{d}x_{1}^{\left ( i \right )}x_{2}^{\left ( i \right )}}
+\\=&\sqrt{\left \langle x_{1},x_{1} \right \rangle+\left \langle x_{2},x_{2} \right \rangle-2\left \langle x_{1},x_{2} \right \rangle}
 \end{align*}
-To make use of the kernel trick to formulate the k-nearest neighbor algorithm, we have:
+To make use of the kernel trick to formulate the k-nearest neighbor algorithm, we can just replace the doe products in the above equation with kernel function $K$ and then we can get:
 \begin{align*}
-D=K\left ( X,Y \right )
+d=\sqrt{K\left ( x_{1},x_{1} \right )+K\left ( x_{2},x_{2} \right )-2K\left ( x_{1},x_{2} \right )}
 \end{align*}
+Instead of using the Euclidean distance to calculate the relation between two vectors, we use this function to calculate it.
 
 \section{Constructing kernels}
 
@@ -232,7 +266,25 @@ D=K\left ( X,Y \right )
 According to the Mercer's theorem, if $k_{1}$ is a valid kernel, then the Gram matrix $K_{1}$ whose elements are $k_{1}\left ( x, x^{'} \right ),1\leq i,j\leq m$ is positive definite. According to the definition of positive definite, the scalar $z^{T}K_{1}z$ should always be positive for every non zero column vector $z$. Because we have $k\left ( x, x^{'} \right ),1\leq i,j\leq m=ck_{1}\left ( x, x^{'} \right ),1\leq i,j\leq m$, we can know the Gram matrix for $k$ is $K=cK_{1}$. So we have $z^{T}Kz=cz^{T}K_{1}z$. It should also be positive and $K$ should be positive definite if $c>0$. Therefore, according to the Mercer's theorem, under the case of $c>0$, $k$ should also be valid kernels.
 
 \paragraph{\textbf{Answer2}}
-Here $k\left ( x, x^{'} \right )$ may not be valid kernel and it depends on $f\left ( x \right )$. For example, if $f\left ( x \right )=0$, then $K$ will be a zero matrix and it's not positive definite. Therefore, according to the Mercer's theorem, under this case, $k$ is not a valid kernel. Also, if $f\left ( x \right )=1$ and then $k=k_{1}$. Under this case, $k$ is a valid kernel.
+Here $k\left ( x, x^{'} \right )$ may not be valid kernel and it depends on $f\left ( x \right )$. For example, if $f\left ( x \right )=0$, then $K$ will be a zero matrix and it's not positive definite. Therefore, according to the Mercer's theorem, under this case, $k$ is not a valid kernel.
+\\ However, if $f\left ( x \right )$ is not always equal to 0, $k$ is a valid kernel. Here is the proof:
+\\According to the Mercer's theorem, because $k_{1}$ is a valid kernel, we have $k_{1}\left ( x,x^{'} \right )=\left \langle \phi \left ( x \right ),\phi \left ( x^{'} \right ) \right \rangle$. Therefore, we can make the following transformation:
+\begin{align*}
+k\left ( x,x^{'} \right )
+&=f\left ( x \right )k_{1}\left ( x,x^{'} \right )f\left ( x^{'} \right )
+\\&=f\left ( x \right )f\left ( x^{'} \right )\left \langle \phi \left ( x \right ),\phi \left ( x^{'} \right ) \right \rangle
+\\&=\left \langle f\left ( x \right )\phi \left ( x \right ),f\left ( x^{'} \right )\phi \left ( x^{'} \right ) \right \rangle
+\\&=\left \langle \phi ^{'}\left ( x \right ) ,\phi ^{'}\left ( x^{'} \right )\right \rangle
+\end{align*}
+Here we define:
+\begin{align*}
+\phi ^{'}\left ( x \right )=f\left ( x \right )\phi \left ( x \right )
+\end{align*}
+Therefore, we have:
+\begin{align*}
+k\left ( x,x^{'} \right )=\left \langle \phi ^{'}\left ( x \right ) ,\phi ^{'}\left ( x^{'} \right )\right \rangle
+\end{align*}
+According to the Mercer's theorem, $k$ is a valid kernel
 
 \paragraph{\textbf{Answer3}}
 This is similar to answer1. Here $K=K_{1}+K_{2}$ and $z^{T}Kz=z^{T}K_{1}z+z^{T}K_{2}z>0$ for every non zero column vector $z$. According to the Mercer's theorem, $K$ is positive definite and therefore $k$ should also be valid kernels.
