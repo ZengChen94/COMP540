@@ -27,13 +27,19 @@ def softmax_loss_naive(theta, X, y, reg):
   # careful here, it is easy to run into numeric instability. Don't forget    #
   # the regularization term!                                                  #
   #############################################################################
-  for i in range(0, m):
-    for j in range(0, K):
-      P = np.exp(theta[:, j].dot(X[i])) / np.sum(np.exp(theta.T.dot(X[i])))
-      J = J - int(y[i] == j) * np.log(P) / m
-      grad[:, j] = grad[:, j] + X[i] * (int(y[i] == j) - P) / m
+
+  for i in xrange(m):
+    for k in xrange(theta.shape[1]):
+      temp = theta.T.dot(X[i])
+      maxVal = temp[np.argmax(temp)]
+      P = np.exp(theta[:, k].T.dot(X[i]) - maxVal) / np.sum(np.exp(theta.T.dot(X[i]) - maxVal))
+      # P = np.exp(theta[:, k].T.dot(X[i])) / np.sum(np.exp(theta.T.dot(X[i])))
+      J -= int(y[i] == k) * np.log(P) / m
+      grad[:, k] -= X[i] * (int(y[i] == k) - P) / m
+
   J += reg * np.sum(theta * theta) / (2 * m)
   grad += reg * theta / m
+
 
   #############################################################################
   #                          END OF YOUR CODE                                 #
@@ -60,6 +66,18 @@ def softmax_loss_vectorized(theta, X, y, reg):
   # regularization term!                                                      #
   #############################################################################
 
+
+  matrix = X.dot(theta)
+  matrix -= np.max(matrix)
+  matrix = np.exp(matrix)
+  matrix /= np.sum(matrix, axis=1)[:,None]
+
+  label = np.array(range(theta.shape[1]))
+  Y = (np.ones((X.shape[0], theta.shape[1])) * label).T
+  L = (Y == y).T
+
+  J = -np.sum(np.log(matrix[L == 1])) / m + reg * np.sum(theta * theta) / (2 * m)
+  grad = -X.T.dot(L - matrix) / m + reg * theta / m
 
   #############################################################################
   #                          END OF YOUR CODE                                 #
