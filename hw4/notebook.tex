@@ -1,0 +1,1533 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{binary\_svm}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{support-vector-machines}{%
+\subsubsection{Support Vector Machines}\label{support-vector-machines}}
+
+In the first part of this exercise, you will build support vector
+machines (SVMs) for solving binary classification problems. You will
+experiment with your classifier on three example 2D datasets.
+Experimenting with these datasets will help you gain intuition into how
+SVMs work and how to use a Gaussian kernel with SVMs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} This is a bit of magic to make matplotlib figures appear inline in the notebook}
+        \PY{c+c1}{\PYZsh{} rather than in a new window.}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{)} \PY{c+c1}{\PYZsh{} set default size of plots}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.cmap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} Some more magic so that the notebook will reload external python modules;}
+        \PY{c+c1}{\PYZsh{} see http://stackoverflow.com/questions/1907993/autoreload\PYZhy{}of\PYZhy{}modules\PYZhy{}in\PYZhy{}ipython}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+\end{Verbatim}
+
+
+    \hypertarget{data-set-1}{%
+\subsubsection{Data set 1}\label{data-set-1}}
+
+We will begin with a 2D example dataset which can be separated by a
+linear boundary. In this dataset, the positions of the positive examples
+(green circles) and the negative examples (indicated with red circles)
+suggest a natural separation indicated by the gap. However, notice that
+there is an outlier positive example on the far left at about (0.1,
+4.1). As part of this exercise, you will also see how this outlier
+affects the SVM decision boundary.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{linear\PYZus{}svm}
+        \PY{k+kn}{import} \PY{n+nn}{utils}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{preprocessing}\PY{p}{,} \PY{n}{metrics}
+        \PY{k+kn}{from} \PY{n+nn}{linear\PYZus{}classifier} \PY{k+kn}{import} \PY{n}{LinearSVM\PYZus{}twoclass}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  Part  0: Loading and Visualizing Data                                   \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  We start the exercise by first loading and visualizing the dataset.     \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  The following code will load the dataset into your environment and plot \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  the data.                                                               \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{c+c1}{\PYZsh{} load ex4data1.mat}
+        
+        \PY{n}{X}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{n}{utils}\PY{o}{.}\PY{n}{load\PYZus{}mat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/ex4data1.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{utils}\PY{o}{.}\PY{n}{plot\PYZus{}twoclass\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{the-hinge-loss-function-and-gradient}{%
+\subsubsection{The hinge loss function and
+gradient}\label{the-hinge-loss-function-and-gradient}}
+
+Now you will implement the hinge loss cost function and its gradient for
+support vector machines. Complete the \textbf{binary\_svm\_loss}
+function in \textbf{linear\_svm.py} to return the cost and gradient for
+the hinge loss function. Recall that the hinge loss function is
+\[ J(\theta) = \frac{1}{2m} \sum_{j=0}^{d} {\theta_j}^2 + \frac{C}{m} \sum_{i=1}^{m} max(0, 1 -y^{(i)}h_\theta(x^{(i)})) \]
+
+where \(h_{\theta}(x) = \theta^ T x\) with \(x_0 = 1\). \(C\) is the
+penalty factor which measures how much misclassifications are penalized.
+If \(y^{(i)}h_\theta(x^{(i)})) > 1\), then \(x^{(i)}\) is correctly
+classified and the loss associated with that example is zero. If
+\(y^{(i)}h_\theta(x^{(i)})) < 1\), then \(x^{(i)}\) is not within the
+appropriate margin (positive or negative) and the loss associated with
+that example is greater than zero. The gradient of the hinge loss
+function is a vector of the same length as \(\theta\) where the
+\(j^{th}\) element, \(j=0,1,\ldots,d\) is defined as follows:
+
+\begin{eqnarray*} \frac{\partial J(\theta)}{\partial \theta_j}  & = &
+\left \{
+\begin{array}{l l}
+\frac{1}{m} \theta_j + \frac{C}{m} \sum_{i=1}^{m} -y^{(i)}x_j^{(i)}& \mbox{ if } y^{(i)}h_\theta(x^{(i)})) < 1\\
+\frac{1}{m} \theta_j & \mbox{ if } y^{(i)}h_\theta(x^{(i)})) >= 1\\
+\end{array} \right. 
+\end{eqnarray*}
+
+Once you are done, the cell below will call your
+\textbf{binary\_svm\_loss} function with a zero vector \(\theta\). You
+should see that the cost \(J\) is 1.0. The gradient of the loss function
+with respect to an all-zeros \(\theta\) vector is also computed and
+should be \([-0.12956186 -0.00167647]^T\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  Part 1: Hinge loss function and gradient                                \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{n}{C} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{yy}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{J}\PY{p}{,}\PY{n}{grad} \PY{o}{=} \PY{n}{linear\PYZus{}svm}\PY{o}{.}\PY{n}{binary\PYZus{}svm\PYZus{}loss}\PY{p}{(}\PY{n}{theta}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{n}{C}\PY{p}{)}
+        
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{J = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{J}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ grad = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{grad}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+J =  1.0  grad =  [-0.12956186 -0.00167647]
+
+    \end{Verbatim}
+
+    \hypertarget{impact-of-varying-c}{%
+\subsubsection{Impact of varying C}\label{impact-of-varying-c}}
+
+In this part of the exercise, you will try using different values of the
+C parameter with SVMs. Informally, the C parameter is a positive value
+that controls the penalty for misclassified training examples. A large C
+parameter tells the SVM to try to classify all the examples correctly. C
+plays a role similar to \(\frac{1}{\lambda}\), where \(\lambda\) is the
+regularization parameter that we were using previously for logistic
+regression.
+
+The SVM training function is in \textbf{linear\_classifier.py} -- this
+is a gradient descent algorithm that uses your loss and gradient
+functions. The cell below will train an SVM on the example data set 1
+with C = 1. It first scales the data to have zero mean and unit
+variance, and adds the intercept term to the data matrix. When C = 1,
+you should find that the SVM puts the decision boundary in the gap
+between the two datasets and misclassifies the data point on the far
+left.
+
+Your task is to try different values of C on this dataset. Specifically,
+you should change the value of C in the cell below to C = 100 and run
+the SVM training again. When C = 100, you should find that the SVM now
+classifies every single example correctly, but has a decision boundary
+that does not appear to be a natural fit for the data. Include a plot of
+the decision boundary for C = 100 in writeup.pdf.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Scale the data and set up the SVM training                               \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{c+c1}{\PYZsh{} scale the data}
+        
+        \PY{n}{scaler} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        \PY{n}{scaleX} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} add an intercept term and convert y values from [0,1] to [\PYZhy{}1,1]}
+        
+        \PY{n}{XX} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{)} \PY{o+ow}{in} \PY{n}{scaleX}\PY{p}{]}\PY{p}{)}
+        \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{yy}\PY{p}{[}\PY{n}{y} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{yy}\PY{p}{[}\PY{n}{y} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  Part  2: Training linear SVM                                            \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  We train a linear SVM on the data set and the plot the learned          \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}  decision boundary                                                       \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} You will change this line below to vary C.                               \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{c+c1}{\PYZsh{} C = 1}
+        \PY{n}{C} \PY{o}{=} \PY{l+m+mi}{100}
+        
+        \PY{n}{svm} \PY{o}{=} \PY{n}{LinearSVM\PYZus{}twoclass}\PY{p}{(}\PY{p}{)}
+        \PY{n}{svm}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{XX}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+        \PY{n}{svm}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{XX}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PY{n}{reg}\PY{o}{=}\PY{n}{C}\PY{p}{,}\PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{50000}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{XX}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} classify the training data}
+        
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{XX}\PY{p}{)}
+        
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy on training data = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{.}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{yy}\PY{p}{,}\PY{n}{y\PYZus{}pred}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} visualize the decision boundary}
+        
+        \PY{n}{utils}\PY{o}{.}\PY{n}{plot\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{scaleX}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{svm}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 0 / 50000: loss 100.000000
+iteration 100 / 50000: loss 30.590663
+iteration 200 / 50000: loss 21.232761
+iteration 300 / 50000: loss 16.888655
+iteration 400 / 50000: loss 14.368906
+iteration 500 / 50000: loss 12.473422
+iteration 600 / 50000: loss 11.533702
+iteration 700 / 50000: loss 11.139755
+iteration 800 / 50000: loss 10.755964
+iteration 900 / 50000: loss 10.372323
+iteration 1000 / 50000: loss 9.988833
+iteration 1100 / 50000: loss 9.605493
+iteration 1200 / 50000: loss 9.222303
+iteration 1300 / 50000: loss 8.856682
+iteration 1400 / 50000: loss 8.516792
+iteration 1500 / 50000: loss 8.278231
+iteration 1600 / 50000: loss 8.052670
+iteration 1700 / 50000: loss 7.828877
+iteration 1800 / 50000: loss 7.613761
+iteration 1900 / 50000: loss 7.429853
+iteration 2000 / 50000: loss 7.304432
+iteration 2100 / 50000: loss 7.179061
+iteration 2200 / 50000: loss 7.054830
+iteration 2300 / 50000: loss 6.996859
+iteration 2400 / 50000: loss 6.941865
+iteration 2500 / 50000: loss 6.886834
+iteration 2600 / 50000: loss 6.831648
+iteration 2700 / 50000: loss 6.780051
+iteration 2800 / 50000: loss 6.742233
+iteration 2900 / 50000: loss 6.704470
+iteration 3000 / 50000: loss 6.666842
+iteration 3100 / 50000: loss 6.629154
+iteration 3200 / 50000: loss 6.591539
+iteration 3300 / 50000: loss 6.553759
+iteration 3400 / 50000: loss 6.516206
+iteration 3500 / 50000: loss 6.478382
+iteration 3600 / 50000: loss 6.441002
+iteration 3700 / 50000: loss 6.403105
+iteration 3800 / 50000: loss 6.365565
+iteration 3900 / 50000: loss 6.328105
+iteration 4000 / 50000: loss 6.290425
+iteration 4100 / 50000: loss 6.252852
+iteration 4200 / 50000: loss 6.215401
+iteration 4300 / 50000: loss 6.177877
+iteration 4400 / 50000: loss 6.140479
+iteration 4500 / 50000: loss 6.102865
+iteration 4600 / 50000: loss 6.065461
+iteration 4700 / 50000: loss 6.027824
+iteration 4800 / 50000: loss 5.990648
+iteration 4900 / 50000: loss 5.952888
+iteration 5000 / 50000: loss 5.915573
+iteration 5100 / 50000: loss 5.878281
+iteration 5200 / 50000: loss 5.840737
+iteration 5300 / 50000: loss 5.806122
+iteration 5400 / 50000: loss 5.779399
+iteration 5500 / 50000: loss 5.752494
+iteration 5600 / 50000: loss 5.725690
+iteration 5700 / 50000: loss 5.699164
+iteration 5800 / 50000: loss 5.672295
+iteration 5900 / 50000: loss 5.645383
+iteration 6000 / 50000: loss 5.618670
+iteration 6100 / 50000: loss 5.592055
+iteration 6200 / 50000: loss 5.565358
+iteration 6300 / 50000: loss 5.538440
+iteration 6400 / 50000: loss 5.511817
+iteration 6500 / 50000: loss 5.485114
+iteration 6600 / 50000: loss 5.458590
+iteration 6700 / 50000: loss 5.431664
+iteration 6800 / 50000: loss 5.405133
+iteration 6900 / 50000: loss 5.378340
+iteration 7000 / 50000: loss 5.351989
+iteration 7100 / 50000: loss 5.325073
+iteration 7200 / 50000: loss 5.298615
+iteration 7300 / 50000: loss 5.271805
+iteration 7400 / 50000: loss 5.245288
+iteration 7500 / 50000: loss 5.218680
+iteration 7600 / 50000: loss 5.192265
+iteration 7700 / 50000: loss 5.165448
+iteration 7800 / 50000: loss 5.139016
+iteration 7900 / 50000: loss 5.112574
+iteration 8000 / 50000: loss 5.086081
+iteration 8100 / 50000: loss 5.059269
+iteration 8200 / 50000: loss 5.032916
+iteration 8300 / 50000: loss 5.006385
+iteration 8400 / 50000: loss 4.980064
+iteration 8500 / 50000: loss 4.953293
+iteration 8600 / 50000: loss 4.926982
+iteration 8700 / 50000: loss 4.903138
+iteration 8800 / 50000: loss 4.891199
+iteration 8900 / 50000: loss 4.879439
+iteration 9000 / 50000: loss 4.867509
+iteration 9100 / 50000: loss 4.855585
+iteration 9200 / 50000: loss 4.843826
+iteration 9300 / 50000: loss 4.831923
+iteration 9400 / 50000: loss 4.820012
+iteration 9500 / 50000: loss 4.808215
+iteration 9600 / 50000: loss 4.796379
+iteration 9700 / 50000: loss 4.784482
+iteration 9800 / 50000: loss 4.772646
+iteration 9900 / 50000: loss 4.760876
+iteration 10000 / 50000: loss 4.749586
+iteration 10100 / 50000: loss 4.739547
+iteration 10200 / 50000: loss 4.729707
+iteration 10300 / 50000: loss 4.719775
+iteration 10400 / 50000: loss 4.709748
+iteration 10500 / 50000: loss 4.699932
+iteration 10600 / 50000: loss 4.689999
+iteration 10700 / 50000: loss 4.680076
+iteration 10800 / 50000: loss 4.670192
+iteration 10900 / 50000: loss 4.660258
+iteration 11000 / 50000: loss 4.650429
+iteration 11100 / 50000: loss 4.640487
+iteration 11200 / 50000: loss 4.630552
+iteration 11300 / 50000: loss 4.620735
+iteration 11400 / 50000: loss 4.610816
+iteration 11500 / 50000: loss 4.600980
+iteration 11600 / 50000: loss 4.591075
+iteration 11700 / 50000: loss 4.581181
+iteration 11800 / 50000: loss 4.571419
+iteration 11900 / 50000: loss 4.561451
+iteration 12000 / 50000: loss 4.551588
+iteration 12100 / 50000: loss 4.541818
+iteration 12200 / 50000: loss 4.531861
+iteration 12300 / 50000: loss 4.522185
+iteration 12400 / 50000: loss 4.512251
+iteration 12500 / 50000: loss 4.502306
+iteration 12600 / 50000: loss 4.492657
+iteration 12700 / 50000: loss 4.482719
+iteration 12800 / 50000: loss 4.472800
+iteration 12900 / 50000: loss 4.463095
+iteration 13000 / 50000: loss 4.453222
+iteration 13100 / 50000: loss 4.443474
+iteration 13200 / 50000: loss 4.433633
+iteration 13300 / 50000: loss 4.423760
+iteration 13400 / 50000: loss 4.414023
+iteration 13500 / 50000: loss 4.404206
+iteration 13600 / 50000: loss 4.394353
+iteration 13700 / 50000: loss 4.384607
+iteration 13800 / 50000: loss 4.374814
+iteration 13900 / 50000: loss 4.365113
+iteration 14000 / 50000: loss 4.355225
+iteration 14100 / 50000: loss 4.345456
+iteration 14200 / 50000: loss 4.335754
+iteration 14300 / 50000: loss 4.325878
+iteration 14400 / 50000: loss 4.316152
+iteration 14500 / 50000: loss 4.306430
+iteration 14600 / 50000: loss 4.296565
+iteration 14700 / 50000: loss 4.286997
+iteration 14800 / 50000: loss 4.277140
+iteration 14900 / 50000: loss 4.267287
+iteration 15000 / 50000: loss 4.257697
+iteration 15100 / 50000: loss 4.247884
+iteration 15200 / 50000: loss 4.238143
+iteration 15300 / 50000: loss 4.228477
+iteration 15400 / 50000: loss 4.218663
+iteration 15500 / 50000: loss 4.209007
+iteration 15600 / 50000: loss 4.199291
+iteration 15700 / 50000: loss 4.189476
+iteration 15800 / 50000: loss 4.179832
+iteration 15900 / 50000: loss 4.170990
+iteration 16000 / 50000: loss 4.164655
+iteration 16100 / 50000: loss 4.158678
+iteration 16200 / 50000: loss 4.152742
+iteration 16300 / 50000: loss 4.146715
+iteration 16400 / 50000: loss 4.140690
+iteration 16500 / 50000: loss 4.134667
+iteration 16600 / 50000: loss 4.128647
+iteration 16700 / 50000: loss 4.122774
+iteration 16800 / 50000: loss 4.116762
+iteration 16900 / 50000: loss 4.110749
+iteration 17000 / 50000: loss 4.104738
+iteration 17100 / 50000: loss 4.098730
+iteration 17200 / 50000: loss 4.092741
+iteration 17300 / 50000: loss 4.086869
+iteration 17400 / 50000: loss 4.080867
+iteration 17500 / 50000: loss 4.074868
+iteration 17600 / 50000: loss 4.068872
+iteration 17700 / 50000: loss 4.062877
+iteration 17800 / 50000: loss 4.056992
+iteration 17900 / 50000: loss 4.051044
+iteration 18000 / 50000: loss 4.045056
+iteration 18100 / 50000: loss 4.039072
+iteration 18200 / 50000: loss 4.033089
+iteration 18300 / 50000: loss 4.027109
+iteration 18400 / 50000: loss 4.021279
+iteration 18500 / 50000: loss 4.015303
+iteration 18600 / 50000: loss 4.009330
+iteration 18700 / 50000: loss 4.003359
+iteration 18800 / 50000: loss 3.997390
+iteration 18900 / 50000: loss 3.991494
+iteration 19000 / 50000: loss 3.985608
+iteration 19100 / 50000: loss 3.979647
+iteration 19200 / 50000: loss 3.973687
+iteration 19300 / 50000: loss 3.967730
+iteration 19400 / 50000: loss 3.961776
+iteration 19500 / 50000: loss 3.955971
+iteration 19600 / 50000: loss 3.950021
+iteration 19700 / 50000: loss 3.944074
+iteration 19800 / 50000: loss 3.938128
+iteration 19900 / 50000: loss 3.932185
+iteration 20000 / 50000: loss 3.926277
+iteration 20100 / 50000: loss 3.920454
+iteration 20200 / 50000: loss 3.914518
+iteration 20300 / 50000: loss 3.908584
+iteration 20400 / 50000: loss 3.902653
+iteration 20500 / 50000: loss 3.896724
+iteration 20600 / 50000: loss 3.890919
+iteration 20700 / 50000: loss 3.885021
+iteration 20800 / 50000: loss 3.879098
+iteration 20900 / 50000: loss 3.873179
+iteration 21000 / 50000: loss 3.867261
+iteration 21100 / 50000: loss 3.861346
+iteration 21200 / 50000: loss 3.855581
+iteration 21300 / 50000: loss 3.849670
+iteration 21400 / 50000: loss 3.843762
+iteration 21500 / 50000: loss 3.837856
+iteration 21600 / 50000: loss 3.831952
+iteration 21700 / 50000: loss 3.826136
+iteration 21800 / 50000: loss 3.820300
+iteration 21900 / 50000: loss 3.814403
+iteration 22000 / 50000: loss 3.808508
+iteration 22100 / 50000: loss 3.802616
+iteration 22200 / 50000: loss 3.796726
+iteration 22300 / 50000: loss 3.790987
+iteration 22400 / 50000: loss 3.785101
+iteration 22500 / 50000: loss 3.779218
+iteration 22600 / 50000: loss 3.773338
+iteration 22700 / 50000: loss 3.767459
+iteration 22800 / 50000: loss 3.761631
+iteration 22900 / 50000: loss 3.755861
+iteration 23000 / 50000: loss 3.750223
+iteration 23100 / 50000: loss 3.744683
+iteration 23200 / 50000: loss 3.739041
+iteration 23300 / 50000: loss 3.733546
+iteration 23400 / 50000: loss 3.727916
+iteration 23500 / 50000: loss 3.722365
+iteration 23600 / 50000: loss 3.716740
+iteration 23700 / 50000: loss 3.711193
+iteration 23800 / 50000: loss 3.705572
+iteration 23900 / 50000: loss 3.699953
+iteration 24000 / 50000: loss 3.694413
+iteration 24100 / 50000: loss 3.688799
+iteration 24200 / 50000: loss 3.683263
+iteration 24300 / 50000: loss 3.677653
+iteration 24400 / 50000: loss 3.672114
+iteration 24500 / 50000: loss 3.666516
+iteration 24600 / 50000: loss 3.660913
+iteration 24700 / 50000: loss 3.655388
+iteration 24800 / 50000: loss 3.649789
+iteration 24900 / 50000: loss 3.644268
+iteration 25000 / 50000: loss 3.638904
+iteration 25100 / 50000: loss 3.633849
+iteration 25200 / 50000: loss 3.628601
+iteration 25300 / 50000: loss 3.623550
+iteration 25400 / 50000: loss 3.618445
+iteration 25500 / 50000: loss 3.613260
+iteration 25600 / 50000: loss 3.608156
+iteration 25700 / 50000: loss 3.602977
+iteration 25800 / 50000: loss 3.597875
+iteration 25900 / 50000: loss 3.592703
+iteration 26000 / 50000: loss 3.587601
+iteration 26100 / 50000: loss 3.582459
+iteration 26200 / 50000: loss 3.577336
+iteration 26300 / 50000: loss 3.572201
+iteration 26400 / 50000: loss 3.567319
+iteration 26500 / 50000: loss 3.561950
+iteration 26600 / 50000: loss 3.556902
+iteration 26700 / 50000: loss 3.551708
+iteration 26800 / 50000: loss 3.546664
+iteration 26900 / 50000: loss 3.541474
+iteration 27000 / 50000: loss 3.536457
+iteration 27100 / 50000: loss 3.531255
+iteration 27200 / 50000: loss 3.526234
+iteration 27300 / 50000: loss 3.521052
+iteration 27400 / 50000: loss 3.516020
+iteration 27500 / 50000: loss 3.510842
+iteration 27600 / 50000: loss 3.505814
+iteration 27700 / 50000: loss 3.500639
+iteration 27800 / 50000: loss 3.495615
+iteration 27900 / 50000: loss 3.490445
+iteration 28000 / 50000: loss 3.485448
+iteration 28100 / 50000: loss 3.480259
+iteration 28200 / 50000: loss 3.475266
+iteration 28300 / 50000: loss 3.470222
+iteration 28400 / 50000: loss 3.465091
+iteration 28500 / 50000: loss 3.460049
+iteration 28600 / 50000: loss 3.454925
+iteration 28700 / 50000: loss 3.449883
+iteration 28800 / 50000: loss 3.444767
+iteration 28900 / 50000: loss 3.439726
+iteration 29000 / 50000: loss 3.434639
+iteration 29100 / 50000: loss 3.429577
+iteration 29200 / 50000: loss 3.424497
+iteration 29300 / 50000: loss 3.419502
+iteration 29400 / 50000: loss 3.414362
+iteration 29500 / 50000: loss 3.409372
+iteration 29600 / 50000: loss 3.404235
+iteration 29700 / 50000: loss 3.399259
+iteration 29800 / 50000: loss 3.394117
+iteration 29900 / 50000: loss 3.389158
+iteration 30000 / 50000: loss 3.384027
+iteration 30100 / 50000: loss 3.379051
+iteration 30200 / 50000: loss 3.373926
+iteration 30300 / 50000: loss 3.368952
+iteration 30400 / 50000: loss 3.363831
+iteration 30500 / 50000: loss 3.358861
+iteration 30600 / 50000: loss 3.353744
+iteration 30700 / 50000: loss 3.348777
+iteration 30800 / 50000: loss 3.343665
+iteration 30900 / 50000: loss 3.338726
+iteration 31000 / 50000: loss 3.333596
+iteration 31100 / 50000: loss 3.328658
+iteration 31200 / 50000: loss 3.323674
+iteration 31300 / 50000: loss 3.318599
+iteration 31400 / 50000: loss 3.313616
+iteration 31500 / 50000: loss 3.308547
+iteration 31600 / 50000: loss 3.303566
+iteration 31700 / 50000: loss 3.298503
+iteration 31800 / 50000: loss 3.293523
+iteration 31900 / 50000: loss 3.288491
+iteration 32000 / 50000: loss 3.283488
+iteration 32100 / 50000: loss 3.278463
+iteration 32200 / 50000: loss 3.273526
+iteration 32300 / 50000: loss 3.268443
+iteration 32400 / 50000: loss 3.263510
+iteration 32500 / 50000: loss 3.258430
+iteration 32600 / 50000: loss 3.253524
+iteration 32700 / 50000: loss 3.248426
+iteration 32800 / 50000: loss 3.243524
+iteration 32900 / 50000: loss 3.238453
+iteration 33000 / 50000: loss 3.233531
+iteration 33100 / 50000: loss 3.228464
+iteration 33200 / 50000: loss 3.223546
+iteration 33300 / 50000: loss 3.218483
+iteration 33400 / 50000: loss 3.213569
+iteration 33500 / 50000: loss 3.208510
+iteration 33600 / 50000: loss 3.203604
+iteration 33700 / 50000: loss 3.198544
+iteration 33800 / 50000: loss 3.193662
+iteration 33900 / 50000: loss 3.188602
+iteration 34000 / 50000: loss 3.183708
+iteration 34100 / 50000: loss 3.178784
+iteration 34200 / 50000: loss 3.173762
+iteration 34300 / 50000: loss 3.168840
+iteration 34400 / 50000: loss 3.163824
+iteration 34500 / 50000: loss 3.158903
+iteration 34600 / 50000: loss 3.153894
+iteration 34700 / 50000: loss 3.148974
+iteration 34800 / 50000: loss 3.143995
+iteration 34900 / 50000: loss 3.139052
+iteration 35000 / 50000: loss 3.134080
+iteration 35100 / 50000: loss 3.129200
+iteration 35200 / 50000: loss 3.124173
+iteration 35300 / 50000: loss 3.119297
+iteration 35400 / 50000: loss 3.114274
+iteration 35500 / 50000: loss 3.109425
+iteration 35600 / 50000: loss 3.104383
+iteration 35700 / 50000: loss 3.099537
+iteration 35800 / 50000: loss 3.094522
+iteration 35900 / 50000: loss 3.089657
+iteration 36000 / 50000: loss 3.084646
+iteration 36100 / 50000: loss 3.079785
+iteration 36200 / 50000: loss 3.074778
+iteration 36300 / 50000: loss 3.069921
+iteration 36400 / 50000: loss 3.064918
+iteration 36500 / 50000: loss 3.060081
+iteration 36600 / 50000: loss 3.055065
+iteration 36700 / 50000: loss 3.050239
+iteration 36800 / 50000: loss 3.045373
+iteration 36900 / 50000: loss 3.040398
+iteration 37000 / 50000: loss 3.035533
+iteration 37100 / 50000: loss 3.030564
+iteration 37200 / 50000: loss 3.025700
+iteration 37300 / 50000: loss 3.020738
+iteration 37400 / 50000: loss 3.015876
+iteration 37500 / 50000: loss 3.010920
+iteration 37600 / 50000: loss 3.006059
+iteration 37700 / 50000: loss 3.001133
+iteration 37800 / 50000: loss 2.996259
+iteration 37900 / 50000: loss 2.991330
+iteration 38000 / 50000: loss 2.986506
+iteration 38100 / 50000: loss 2.981535
+iteration 38200 / 50000: loss 2.976715
+iteration 38300 / 50000: loss 2.971748
+iteration 38400 / 50000: loss 2.966955
+iteration 38500 / 50000: loss 2.961968
+iteration 38600 / 50000: loss 2.957179
+iteration 38700 / 50000: loss 2.952220
+iteration 38800 / 50000: loss 2.947410
+iteration 38900 / 50000: loss 2.942455
+iteration 39000 / 50000: loss 2.937650
+iteration 39100 / 50000: loss 2.932698
+iteration 39200 / 50000: loss 2.927897
+iteration 39300 / 50000: loss 2.922949
+iteration 39400 / 50000: loss 2.918175
+iteration 39500 / 50000: loss 2.913208
+iteration 39600 / 50000: loss 2.908437
+iteration 39700 / 50000: loss 2.903630
+iteration 39800 / 50000: loss 2.898707
+iteration 39900 / 50000: loss 2.893901
+iteration 40000 / 50000: loss 2.888985
+iteration 40100 / 50000: loss 2.884180
+iteration 40200 / 50000: loss 2.879270
+iteration 40300 / 50000: loss 2.874466
+iteration 40400 / 50000: loss 2.869574
+iteration 40500 / 50000: loss 2.864760
+iteration 40600 / 50000: loss 2.859887
+iteration 40700 / 50000: loss 2.855084
+iteration 40800 / 50000: loss 2.850195
+iteration 40900 / 50000: loss 2.845426
+iteration 41000 / 50000: loss 2.840510
+iteration 41100 / 50000: loss 2.835745
+iteration 41200 / 50000: loss 2.830833
+iteration 41300 / 50000: loss 2.826095
+iteration 41400 / 50000: loss 2.821164
+iteration 41500 / 50000: loss 2.816430
+iteration 41600 / 50000: loss 2.811526
+iteration 41700 / 50000: loss 2.806772
+iteration 41800 / 50000: loss 2.801872
+iteration 41900 / 50000: loss 2.797122
+iteration 42000 / 50000: loss 2.792225
+iteration 42100 / 50000: loss 2.787479
+iteration 42200 / 50000: loss 2.782586
+iteration 42300 / 50000: loss 2.777867
+iteration 42400 / 50000: loss 2.772955
+iteration 42500 / 50000: loss 2.768239
+iteration 42600 / 50000: loss 2.763490
+iteration 42700 / 50000: loss 2.758619
+iteration 42800 / 50000: loss 2.753871
+iteration 42900 / 50000: loss 2.749007
+iteration 43000 / 50000: loss 2.744259
+iteration 43100 / 50000: loss 2.739402
+iteration 43200 / 50000: loss 2.734655
+iteration 43300 / 50000: loss 2.729827
+iteration 43400 / 50000: loss 2.725059
+iteration 43500 / 50000: loss 2.720237
+iteration 43600 / 50000: loss 2.715710
+iteration 43700 / 50000: loss 2.710655
+iteration 43800 / 50000: loss 2.705941
+iteration 43900 / 50000: loss 2.701080
+iteration 44000 / 50000: loss 2.696369
+iteration 44100 / 50000: loss 2.691512
+iteration 44200 / 50000: loss 2.686829
+iteration 44300 / 50000: loss 2.681958
+iteration 44400 / 50000: loss 2.677273
+iteration 44500 / 50000: loss 2.672423
+iteration 44600 / 50000: loss 2.667724
+iteration 44700 / 50000: loss 2.662878
+iteration 44800 / 50000: loss 2.658183
+iteration 44900 / 50000: loss 2.653341
+iteration 45000 / 50000: loss 2.648649
+iteration 45100 / 50000: loss 2.643811
+iteration 45200 / 50000: loss 2.639146
+iteration 45300 / 50000: loss 2.634288
+iteration 45400 / 50000: loss 2.629627
+iteration 45500 / 50000: loss 2.624935
+iteration 45600 / 50000: loss 2.620115
+iteration 45700 / 50000: loss 2.615424
+iteration 45800 / 50000: loss 2.610611
+iteration 45900 / 50000: loss 2.605921
+iteration 46000 / 50000: loss 2.601115
+iteration 46100 / 50000: loss 2.596425
+iteration 46200 / 50000: loss 2.591649
+iteration 46300 / 50000: loss 2.586937
+iteration 46400 / 50000: loss 2.582167
+iteration 46500 / 50000: loss 2.577503
+iteration 46600 / 50000: loss 2.572693
+iteration 46700 / 50000: loss 2.568033
+iteration 46800 / 50000: loss 2.563226
+iteration 46900 / 50000: loss 2.558577
+iteration 47000 / 50000: loss 2.553767
+iteration 47100 / 50000: loss 2.549137
+iteration 47200 / 50000: loss 2.544333
+iteration 47300 / 50000: loss 2.539689
+iteration 47400 / 50000: loss 2.534894
+iteration 47500 / 50000: loss 2.530248
+iteration 47600 / 50000: loss 2.525456
+iteration 47700 / 50000: loss 2.520815
+iteration 47800 / 50000: loss 2.516027
+iteration 47900 / 50000: loss 2.511389
+iteration 48000 / 50000: loss 2.506604
+iteration 48100 / 50000: loss 2.501993
+iteration 48200 / 50000: loss 2.497189
+iteration 48300 / 50000: loss 2.492582
+iteration 48400 / 50000: loss 2.487946
+iteration 48500 / 50000: loss 2.483178
+iteration 48600 / 50000: loss 2.478543
+iteration 48700 / 50000: loss 2.473781
+iteration 48800 / 50000: loss 2.469147
+iteration 48900 / 50000: loss 2.464392
+iteration 49000 / 50000: loss 2.459759
+iteration 49100 / 50000: loss 2.455033
+iteration 49200 / 50000: loss 2.450378
+iteration 49300 / 50000: loss 2.445659
+iteration 49400 / 50000: loss 2.441048
+iteration 49500 / 50000: loss 2.436291
+iteration 49600 / 50000: loss 2.431685
+iteration 49700 / 50000: loss 2.426932
+iteration 49800 / 50000: loss 2.422348
+iteration 49900 / 50000: loss 2.417579
+Accuracy on training data =  1.0
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{svms-with-gaussian-kernels}{%
+\subsubsection{SVMs with Gaussian
+kernels}\label{svms-with-gaussian-kernels}}
+
+In this part of the exercise, you will be using SVMs to do non-linear
+classification. In particular, you will be using SVMs with Gaussian
+kernels on datasets that are not linearly separable.
+
+To find non-linear decision boundaries with the SVM, we need to first
+implement a Gaussian kernel. You can think of the Gaussian kernel as a
+similarity function that measures the distance between a pair of
+examples, \((x^{(i)}, x^{(j)})\). The Gaussian kernel is also
+parameterized by a bandwidth parameter, \(\sigma\), which determines how
+fast the similarity metric decreases (to 0) as the examples are further
+apart. You should now complete the function \textbf{gaussian\_kernel} in
+\textbf{utils.py} to compute the Gaussian kernel between two examples.
+The Gaussian kernel function is defined as:
+
+\[ k(x^{(i)},x^{(j)}) = exp\left(- \frac{{||x^{(i)}-x^{(j)}||}^2}{2\sigma^2}\right) \]
+
+When you have completed the function, the cell below will test your
+kernel function on two provided examples and you should expect to see a
+value of 0.324652.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}  Part  3: Training SVM with a kernel                                     \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}  We train an SVM with an RBF kernel on the data set and the plot the     \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}  learned decision boundary                                               \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{c+c1}{\PYZsh{} test your Gaussian kernel implementation}
+         
+         \PY{n}{x1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{sigma} \PY{o}{=} \PY{l+m+mi}{2}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Guassian kernel value (should be around 0.324652) = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{utils}\PY{o}{.}\PY{n}{gaussian\PYZus{}kernel}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{sigma}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Guassian kernel value (should be around 0.324652) =  0.32465246735834974
+
+    \end{Verbatim}
+
+    \hypertarget{svms-with-gaussian-kernels-on-dataset-2}{%
+\subsubsection{SVMs with Gaussian kernels on Dataset
+2}\label{svms-with-gaussian-kernels-on-dataset-2}}
+
+The next cell will load and plot dataset 2. From the plot, you can
+observe that there is no linear decision boundary that separates the
+positive and negative examples for this dataset. However, by using the
+Gaussian kernel with the SVM, you will be able to learn a non-linear
+decision boundary that can perform reasonably well for the dataset. If
+you have correctly implemented the Gaussian kernel function, the cell
+below will proceed to train the SVM with the Gaussian kernel on this
+dataset.
+
+The decision boundary found by the SVM with C = 1 and a Gaussian kernel
+with \(\sigma = 0.01\) will be plotted. The decision boundary is able to
+separate most of the positive and negative examples correctly and
+follows the contours of the dataset well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} load ex4data2.mat}
+         
+         \PY{n}{X}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{n}{utils}\PY{o}{.}\PY{n}{load\PYZus{}mat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/ex4data2.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} visualize the data}
+         
+         \PY{n}{utils}\PY{o}{.}\PY{n}{plot\PYZus{}twoclass\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} convert X to kernel form with the kernel function}
+         
+         \PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{0.02}
+         
+         \PY{c+c1}{\PYZsh{} compute the kernel (slow!)}
+         
+         \PY{n}{K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{utils}\PY{o}{.}\PY{n}{gaussian\PYZus{}kernel}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{sigma}\PY{p}{)} \PY{k}{for} \PY{n}{x1} \PY{o+ow}{in} \PY{n}{X} \PY{k}{for} \PY{n}{x2} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} scale the kernelized data matrix}
+         
+         \PY{n}{scaler} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+         \PY{n}{scaleK} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add the intercept term}
+         
+         \PY{n}{KK} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{scaleK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{scaleK}\PY{o}{.}\PY{n}{T}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         
+         \PY{c+c1}{\PYZsh{} transform y from [0,1] to [\PYZhy{}1,1]}
+         
+         \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{yy}\PY{p}{[}\PY{n}{y} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{} set up the SVM and learn the parameters}
+         
+         \PY{n}{svm} \PY{o}{=} \PY{n}{LinearSVM\PYZus{}twoclass}\PY{p}{(}\PY{p}{)}
+         \PY{n}{svm}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{KK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+         \PY{n}{C} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{svm}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{KK}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PY{n}{reg}\PY{o}{=}\PY{n}{C}\PY{p}{,}\PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{20000}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{KK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} visualize the boundary}
+         
+         \PY{n}{utils}\PY{o}{.}\PY{n}{plot\PYZus{}decision\PYZus{}kernel\PYZus{}boundary}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{scaler}\PY{p}{,}\PY{n}{sigma}\PY{p}{,}\PY{n}{svm}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 0 / 20000: loss 1.000000
+iteration 100 / 20000: loss 0.909639
+iteration 200 / 20000: loss 0.819280
+iteration 300 / 20000: loss 0.728923
+iteration 400 / 20000: loss 0.638568
+iteration 500 / 20000: loss 0.549187
+iteration 600 / 20000: loss 0.464934
+iteration 700 / 20000: loss 0.385395
+iteration 800 / 20000: loss 0.314347
+iteration 900 / 20000: loss 0.255687
+iteration 1000 / 20000: loss 0.209960
+iteration 1100 / 20000: loss 0.174572
+iteration 1200 / 20000: loss 0.148580
+iteration 1300 / 20000: loss 0.127957
+iteration 1400 / 20000: loss 0.111948
+iteration 1500 / 20000: loss 0.099269
+iteration 1600 / 20000: loss 0.088947
+iteration 1700 / 20000: loss 0.080530
+iteration 1800 / 20000: loss 0.073272
+iteration 1900 / 20000: loss 0.066809
+iteration 2000 / 20000: loss 0.061174
+iteration 2100 / 20000: loss 0.056112
+iteration 2200 / 20000: loss 0.051827
+iteration 2300 / 20000: loss 0.048282
+iteration 2400 / 20000: loss 0.045170
+iteration 2500 / 20000: loss 0.042354
+iteration 2600 / 20000: loss 0.039759
+iteration 2700 / 20000: loss 0.037321
+iteration 2800 / 20000: loss 0.035094
+iteration 2900 / 20000: loss 0.033087
+iteration 3000 / 20000: loss 0.031185
+iteration 3100 / 20000: loss 0.029491
+iteration 3200 / 20000: loss 0.028013
+iteration 3300 / 20000: loss 0.026675
+iteration 3400 / 20000: loss 0.025435
+iteration 3500 / 20000: loss 0.024293
+iteration 3600 / 20000: loss 0.023232
+iteration 3700 / 20000: loss 0.022243
+iteration 3800 / 20000: loss 0.021392
+iteration 3900 / 20000: loss 0.020609
+iteration 4000 / 20000: loss 0.019854
+iteration 4100 / 20000: loss 0.019123
+iteration 4200 / 20000: loss 0.018465
+iteration 4300 / 20000: loss 0.017829
+iteration 4400 / 20000: loss 0.017215
+iteration 4500 / 20000: loss 0.016633
+iteration 4600 / 20000: loss 0.016060
+iteration 4700 / 20000: loss 0.015501
+iteration 4800 / 20000: loss 0.014969
+iteration 4900 / 20000: loss 0.014449
+iteration 5000 / 20000: loss 0.013949
+iteration 5100 / 20000: loss 0.013482
+iteration 5200 / 20000: loss 0.013032
+iteration 5300 / 20000: loss 0.012619
+iteration 5400 / 20000: loss 0.012214
+iteration 5500 / 20000: loss 0.011833
+iteration 5600 / 20000: loss 0.011487
+iteration 5700 / 20000: loss 0.011155
+iteration 5800 / 20000: loss 0.010851
+iteration 5900 / 20000: loss 0.010585
+iteration 6000 / 20000: loss 0.010347
+iteration 6100 / 20000: loss 0.010123
+iteration 6200 / 20000: loss 0.009909
+iteration 6300 / 20000: loss 0.009708
+iteration 6400 / 20000: loss 0.009516
+iteration 6500 / 20000: loss 0.009340
+iteration 6600 / 20000: loss 0.009175
+iteration 6700 / 20000: loss 0.009010
+iteration 6800 / 20000: loss 0.008854
+iteration 6900 / 20000: loss 0.008732
+iteration 7000 / 20000: loss 0.008626
+iteration 7100 / 20000: loss 0.008527
+iteration 7200 / 20000: loss 0.008427
+iteration 7300 / 20000: loss 0.008336
+iteration 7400 / 20000: loss 0.008246
+iteration 7500 / 20000: loss 0.008156
+iteration 7600 / 20000: loss 0.008065
+iteration 7700 / 20000: loss 0.007975
+iteration 7800 / 20000: loss 0.007885
+iteration 7900 / 20000: loss 0.007802
+iteration 8000 / 20000: loss 0.007720
+iteration 8100 / 20000: loss 0.007637
+iteration 8200 / 20000: loss 0.007559
+iteration 8300 / 20000: loss 0.007488
+iteration 8400 / 20000: loss 0.007418
+iteration 8500 / 20000: loss 0.007348
+iteration 8600 / 20000: loss 0.007278
+iteration 8700 / 20000: loss 0.007208
+iteration 8800 / 20000: loss 0.007138
+iteration 8900 / 20000: loss 0.007067
+iteration 9000 / 20000: loss 0.006997
+iteration 9100 / 20000: loss 0.006927
+iteration 9200 / 20000: loss 0.006857
+iteration 9300 / 20000: loss 0.006787
+iteration 9400 / 20000: loss 0.006717
+iteration 9500 / 20000: loss 0.006646
+iteration 9600 / 20000: loss 0.006576
+iteration 9700 / 20000: loss 0.006506
+iteration 9800 / 20000: loss 0.006436
+iteration 9900 / 20000: loss 0.006366
+iteration 10000 / 20000: loss 0.006296
+iteration 10100 / 20000: loss 0.006226
+iteration 10200 / 20000: loss 0.006155
+iteration 10300 / 20000: loss 0.006085
+iteration 10400 / 20000: loss 0.006015
+iteration 10500 / 20000: loss 0.005945
+iteration 10600 / 20000: loss 0.005875
+iteration 10700 / 20000: loss 0.005805
+iteration 10800 / 20000: loss 0.005735
+iteration 10900 / 20000: loss 0.005671
+iteration 11000 / 20000: loss 0.005609
+iteration 11100 / 20000: loss 0.005547
+iteration 11200 / 20000: loss 0.005485
+iteration 11300 / 20000: loss 0.005423
+iteration 11400 / 20000: loss 0.005362
+iteration 11500 / 20000: loss 0.005300
+iteration 11600 / 20000: loss 0.005238
+iteration 11700 / 20000: loss 0.005176
+iteration 11800 / 20000: loss 0.005114
+iteration 11900 / 20000: loss 0.005053
+iteration 12000 / 20000: loss 0.004991
+iteration 12100 / 20000: loss 0.004929
+iteration 12200 / 20000: loss 0.004874
+iteration 12300 / 20000: loss 0.004824
+iteration 12400 / 20000: loss 0.004777
+iteration 12500 / 20000: loss 0.004731
+iteration 12600 / 20000: loss 0.004684
+iteration 12700 / 20000: loss 0.004637
+iteration 12800 / 20000: loss 0.004591
+iteration 12900 / 20000: loss 0.004544
+iteration 13000 / 20000: loss 0.004498
+iteration 13100 / 20000: loss 0.004452
+iteration 13200 / 20000: loss 0.004406
+iteration 13300 / 20000: loss 0.004360
+iteration 13400 / 20000: loss 0.004313
+iteration 13500 / 20000: loss 0.004269
+iteration 13600 / 20000: loss 0.004225
+iteration 13700 / 20000: loss 0.004182
+iteration 13800 / 20000: loss 0.004138
+iteration 13900 / 20000: loss 0.004095
+iteration 14000 / 20000: loss 0.004051
+iteration 14100 / 20000: loss 0.004007
+iteration 14200 / 20000: loss 0.003974
+iteration 14300 / 20000: loss 0.003946
+iteration 14400 / 20000: loss 0.003919
+iteration 14500 / 20000: loss 0.003892
+iteration 14600 / 20000: loss 0.003864
+iteration 14700 / 20000: loss 0.003837
+iteration 14800 / 20000: loss 0.003810
+iteration 14900 / 20000: loss 0.003782
+iteration 15000 / 20000: loss 0.003755
+iteration 15100 / 20000: loss 0.003728
+iteration 15200 / 20000: loss 0.003706
+iteration 15300 / 20000: loss 0.003685
+iteration 15400 / 20000: loss 0.003664
+iteration 15500 / 20000: loss 0.003643
+iteration 15600 / 20000: loss 0.003623
+iteration 15700 / 20000: loss 0.003603
+iteration 15800 / 20000: loss 0.003584
+iteration 15900 / 20000: loss 0.003567
+iteration 16000 / 20000: loss 0.003554
+iteration 16100 / 20000: loss 0.003541
+iteration 16200 / 20000: loss 0.003529
+iteration 16300 / 20000: loss 0.003516
+iteration 16400 / 20000: loss 0.003503
+iteration 16500 / 20000: loss 0.003490
+iteration 16600 / 20000: loss 0.003478
+iteration 16700 / 20000: loss 0.003465
+iteration 16800 / 20000: loss 0.003452
+iteration 16900 / 20000: loss 0.003439
+iteration 17000 / 20000: loss 0.003427
+iteration 17100 / 20000: loss 0.003414
+iteration 17200 / 20000: loss 0.003401
+iteration 17300 / 20000: loss 0.003388
+iteration 17400 / 20000: loss 0.003376
+iteration 17500 / 20000: loss 0.003363
+iteration 17600 / 20000: loss 0.003350
+iteration 17700 / 20000: loss 0.003337
+iteration 17800 / 20000: loss 0.003324
+iteration 17900 / 20000: loss 0.003312
+iteration 18000 / 20000: loss 0.003299
+iteration 18100 / 20000: loss 0.003286
+iteration 18200 / 20000: loss 0.003273
+iteration 18300 / 20000: loss 0.003261
+iteration 18400 / 20000: loss 0.003248
+iteration 18500 / 20000: loss 0.003235
+iteration 18600 / 20000: loss 0.003222
+iteration 18700 / 20000: loss 0.003210
+iteration 18800 / 20000: loss 0.003197
+iteration 18900 / 20000: loss 0.003184
+iteration 19000 / 20000: loss 0.003171
+iteration 19100 / 20000: loss 0.003159
+iteration 19200 / 20000: loss 0.003146
+iteration 19300 / 20000: loss 0.003133
+iteration 19400 / 20000: loss 0.003120
+iteration 19500 / 20000: loss 0.003108
+iteration 19600 / 20000: loss 0.003095
+iteration 19700 / 20000: loss 0.003082
+iteration 19800 / 20000: loss 0.003069
+iteration 19900 / 20000: loss 0.003057
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{selecting-hyperparameters-for-svms-with-gaussian-kernels}{%
+\subsubsection{Selecting hyperparameters for SVMs with Gaussian
+kernels}\label{selecting-hyperparameters-for-svms-with-gaussian-kernels}}
+
+In this part of the exercise, you will gain more practical skills on how
+to use a SVM with a Gaussian kernel. The next cell will load and display
+a third dataset. In the provided dataset, \textbf{ex4data3.mat}, you are
+given the variables \textbf{X}, \textbf{y}, \textbf{Xval},
+\textbf{yval}. You will be using the SVM with the Gaussian kernel with
+this dataset. Your task is to use the validation set \textbf{Xval},
+\textbf{yval} to determine the best C and \(\sigma\) parameter to use.
+You should write any additional code necessary to help you search over
+the parameters C and \(\sigma\). For both C and \(\sigma\), we suggest
+trying values in multiplicative steps (e.g., 0.01, 0.03, 0.1, 0.3, 1, 3,
+10, 30). Note that you should try all possible pairs of values for C and
+\(\sigma\) (e.g., C = 0.3 and \(\sigma\) = 0.1). For example, if you try
+each of the 8 values listed above for C and for \(\sigma\), you would
+end up training and evaluating (on the validation set) a total of
+\(8^2 = 64\) different models.
+
+When selecting the best C and \(\sigma\) parameter to use, you train on
+\{\tt X,y\} with a given C and \(\sigma\), and then evaluate the error
+of the model on the validation set. Recall that for classification, the
+error is defined as the fraction of the validation examples that were
+classified incorrectly. You can use the \textbf{predict} method of the
+SVM classifier to generate the predictions for the validation set.
+
+After you have determined the best C and \(\sigma\) parameters to use,
+you should replace the assignments to \textbf{best\_C} and
+\textbf{best\_sigma} in the cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}  Part  4: Training SVM with a kernel                                     \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}  We train an SVM with an RBF kernel on the data set and the plot the     \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}  learned decision boundary                                               \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{c+c1}{\PYZsh{} load ex4data3.mat}
+         
+         \PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{Xval}\PY{p}{,}\PY{n}{yval} \PY{o}{=} \PY{n}{utils}\PY{o}{.}\PY{n}{loadval\PYZus{}mat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/ex4data3.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} transform y and yval from [0,1] to [\PYZhy{}1,1]}
+         
+         \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{yy}\PY{p}{[}\PY{n}{y} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{n}{yyval} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{yval}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{yyval}\PY{p}{[}\PY{n}{yval} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{} visualize the data}
+         
+         \PY{n}{utils}\PY{o}{.}\PY{n}{plot\PYZus{}twoclass\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} TODO                                                                     \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} select hyperparameters C and sigma for this dataset using                \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} Xval and yval                                                            \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{n}{Cvals} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{l+m+mf}{0.03}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{]}
+         \PY{n}{sigma\PYZus{}vals} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{l+m+mf}{0.03}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} TODO       }
+         \PY{c+c1}{\PYZsh{} select hyperparameters here; loopover all Cvals and sigma\PYZus{}vals. }
+         \PY{c+c1}{\PYZsh{} About 8\PYZhy{}10 lines of code here}
+         \PY{n}{best\PYZus{}C} \PY{o}{=} \PY{n+nb+bp}{None}
+         \PY{n}{best\PYZus{}sigma} \PY{o}{=} \PY{n+nb+bp}{None}
+         \PY{n}{best\PYZus{}acc} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{k}{for} \PY{n}{sigma} \PY{o+ow}{in} \PY{n}{sigma\PYZus{}vals}\PY{p}{:}
+             \PY{n}{K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{utils}\PY{o}{.}\PY{n}{gaussian\PYZus{}kernel}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{sigma}\PY{p}{)} \PY{k}{for} \PY{n}{x1} \PY{o+ow}{in} \PY{n}{X} \PY{k}{for} \PY{n}{x2} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{scaler} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+             \PY{n}{scaleK} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+             \PY{n}{KK} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{scaleK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{scaleK}\PY{o}{.}\PY{n}{T}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+             
+             \PY{n}{Kval} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{utils}\PY{o}{.}\PY{n}{gaussian\PYZus{}kernel}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{sigma}\PY{p}{)} \PY{k}{for} \PY{n}{x1} \PY{o+ow}{in} \PY{n}{Xval} \PY{k}{for} \PY{n}{x2} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{Xval}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{scaleKval} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{Kval}\PY{p}{)}
+             \PY{n}{KKval} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{scaleKval}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{scaleKval}\PY{o}{.}\PY{n}{T}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         
+             \PY{k}{for} \PY{n}{C} \PY{o+ow}{in} \PY{n}{Cvals}\PY{p}{:}
+                 \PY{n}{svm} \PY{o}{=} \PY{n}{LinearSVM\PYZus{}twoclass}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{svm}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{KK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{svm}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{KK}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PY{n}{reg}\PY{o}{=}\PY{n}{C}\PY{p}{,}\PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{20000}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{KK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{KKval}\PY{p}{)}
+                 \PY{n}{acc} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{yyval}\PY{p}{,}\PY{n}{y\PYZus{}pred}\PY{p}{)}
+                 \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{While sigma =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, C =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{C}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, accuracy on validation data =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{acc}
+                 
+                 \PY{k}{if} \PY{p}{(}\PY{n}{acc} \PY{o}{\PYZgt{}} \PY{n}{best\PYZus{}acc}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{best\PYZus{}acc} \PY{o}{=} \PY{n}{acc}
+                     \PY{n}{best\PYZus{}C} \PY{o}{=} \PY{n}{C}
+                     \PY{n}{best\PYZus{}sigma} \PY{o}{=} \PY{n}{sigma}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best case: best\PYZus{}sigma =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}sigma}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, best\PYZus{}C =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}C}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, best\PYZus{}accuracy on training data =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}acc}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}       END OF YOUR CODE                                                   \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+While sigma = 0.01 , C = 0.01 , accuracy on validation data = 0.61
+While sigma = 0.01 , C = 0.03 , accuracy on validation data = 0.61
+While sigma = 0.01 , C = 0.1 , accuracy on validation data = 0.61
+While sigma = 0.01 , C = 0.3 , accuracy on validation data = 0.605
+While sigma = 0.01 , C = 1 , accuracy on validation data = 0.62
+While sigma = 0.01 , C = 3 , accuracy on validation data = 0.62
+While sigma = 0.01 , C = 10 , accuracy on validation data = 0.62
+While sigma = 0.01 , C = 30 , accuracy on validation data = 0.62
+While sigma = 0.03 , C = 0.01 , accuracy on validation data = 0.9
+While sigma = 0.03 , C = 0.03 , accuracy on validation data = 0.9
+While sigma = 0.03 , C = 0.1 , accuracy on validation data = 0.9
+While sigma = 0.03 , C = 0.3 , accuracy on validation data = 0.9
+While sigma = 0.03 , C = 1 , accuracy on validation data = 0.905
+While sigma = 0.03 , C = 3 , accuracy on validation data = 0.895
+While sigma = 0.03 , C = 10 , accuracy on validation data = 0.89
+While sigma = 0.03 , C = 30 , accuracy on validation data = 0.89
+While sigma = 0.1 , C = 0.01 , accuracy on validation data = 0.925
+While sigma = 0.1 , C = 0.03 , accuracy on validation data = 0.93
+While sigma = 0.1 , C = 0.1 , accuracy on validation data = 0.95
+While sigma = 0.1 , C = 0.3 , accuracy on validation data = 0.96
+While sigma = 0.1 , C = 1 , accuracy on validation data = 0.96
+While sigma = 0.1 , C = 3 , accuracy on validation data = 0.94
+While sigma = 0.1 , C = 10 , accuracy on validation data = 0.93
+While sigma = 0.1 , C = 30 , accuracy on validation data = 0.92
+While sigma = 0.3 , C = 0.01 , accuracy on validation data = 0.815
+While sigma = 0.3 , C = 0.03 , accuracy on validation data = 0.875
+While sigma = 0.3 , C = 0.1 , accuracy on validation data = 0.92
+While sigma = 0.3 , C = 0.3 , accuracy on validation data = 0.94
+While sigma = 0.3 , C = 1 , accuracy on validation data = 0.95
+While sigma = 0.3 , C = 3 , accuracy on validation data = 0.945
+While sigma = 0.3 , C = 10 , accuracy on validation data = 0.95
+While sigma = 0.3 , C = 30 , accuracy on validation data = 0.95
+While sigma = 1 , C = 0.01 , accuracy on validation data = 0.81
+While sigma = 1 , C = 0.03 , accuracy on validation data = 0.875
+While sigma = 1 , C = 0.1 , accuracy on validation data = 0.94
+While sigma = 1 , C = 0.3 , accuracy on validation data = 0.93
+While sigma = 1 , C = 1 , accuracy on validation data = 0.93
+While sigma = 1 , C = 3 , accuracy on validation data = 0.925
+While sigma = 1 , C = 10 , accuracy on validation data = 0.93
+While sigma = 1 , C = 30 , accuracy on validation data = 0.93
+While sigma = 3 , C = 0.01 , accuracy on validation data = 0.815
+While sigma = 3 , C = 0.03 , accuracy on validation data = 0.88
+While sigma = 3 , C = 0.1 , accuracy on validation data = 0.935
+While sigma = 3 , C = 0.3 , accuracy on validation data = 0.93
+While sigma = 3 , C = 1 , accuracy on validation data = 0.92
+While sigma = 3 , C = 3 , accuracy on validation data = 0.92
+While sigma = 3 , C = 10 , accuracy on validation data = 0.925
+While sigma = 3 , C = 30 , accuracy on validation data = 0.925
+While sigma = 10 , C = 0.01 , accuracy on validation data = 0.815
+While sigma = 10 , C = 0.03 , accuracy on validation data = 0.88
+While sigma = 10 , C = 0.1 , accuracy on validation data = 0.935
+While sigma = 10 , C = 0.3 , accuracy on validation data = 0.93
+While sigma = 10 , C = 1 , accuracy on validation data = 0.92
+While sigma = 10 , C = 3 , accuracy on validation data = 0.92
+While sigma = 10 , C = 10 , accuracy on validation data = 0.925
+While sigma = 10 , C = 30 , accuracy on validation data = 0.92
+While sigma = 30 , C = 0.01 , accuracy on validation data = 0.815
+While sigma = 30 , C = 0.03 , accuracy on validation data = 0.88
+While sigma = 30 , C = 0.1 , accuracy on validation data = 0.935
+While sigma = 30 , C = 0.3 , accuracy on validation data = 0.93
+While sigma = 30 , C = 1 , accuracy on validation data = 0.92
+While sigma = 30 , C = 3 , accuracy on validation data = 0.92
+While sigma = 30 , C = 10 , accuracy on validation data = 0.925
+While sigma = 30 , C = 30 , accuracy on validation data = 0.92
+The best case: best\_sigma = 0.1 , best\_C = 0.3 , best\_accuracy on training data = 0.96
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} TODO: make sure you put in the best\PYZus{}C and best\PYZus{}sigma from the analysis above!}
+         
+         
+         \PY{n}{best\PYZus{}C} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{best\PYZus{}sigma} \PY{o}{=} \PY{l+m+mf}{0.3}
+         
+         \PY{c+c1}{\PYZsh{} train an SVM on (X,y) with best\PYZus{}C and best\PYZus{}sigma}
+         \PY{n}{best\PYZus{}svm} \PY{o}{=} \PY{n}{LinearSVM\PYZus{}twoclass}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} TODO: construct the Gram matrix of the data with best\PYZus{}sigma, scale it, add the column of ones}
+         \PY{c+c1}{\PYZsh{} Then use svm\PYZus{}train to train best\PYZus{}svm with the best\PYZus{}C parameter. Use 20,000 iterations and}
+         \PY{c+c1}{\PYZsh{} a learning rate of 1e\PYZhy{}4. Use batch\PYZus{}size of the entire training data set.}
+         \PY{c+c1}{\PYZsh{} About 5\PYZhy{}6 lines of code expected here.}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{n}{K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{utils}\PY{o}{.}\PY{n}{gaussian\PYZus{}kernel}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{n}{best\PYZus{}sigma}\PY{p}{)} \PY{k}{for} \PY{n}{x1} \PY{o+ow}{in} \PY{n}{X} \PY{k}{for} \PY{n}{x2} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{scaler} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+         \PY{n}{scaleK} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+         \PY{n}{KK} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{scaleK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{scaleK}\PY{o}{.}\PY{n}{T}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         
+         \PY{n}{svm}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{KK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+         \PY{n}{svm}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{KK}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PY{n}{reg}\PY{o}{=}\PY{n}{C}\PY{p}{,}\PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{20000}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{KK}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}       END OF YOUR CODE                                                   \PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{c+c1}{\PYZsh{} visualize the boundary}
+         
+         \PY{n}{utils}\PY{o}{.}\PY{n}{plot\PYZus{}decision\PYZus{}kernel\PYZus{}boundary}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{scaler}\PY{p}{,}\PY{n}{best\PYZus{}sigma}\PY{p}{,}\PY{n}{svm}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
