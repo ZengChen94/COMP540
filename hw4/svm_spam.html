@@ -11869,10 +11869,10 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">##################################################################################</span>
-<span class="c1">#                            Using Linear Kernel                                 #</span>
+<span class="c1">#                            Using Linear Model                                  #</span>
 <span class="c1">##################################################################################</span>
 
-<span class="k">print</span> <span class="s2">&quot;1. Using Linear Kernel:&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;1. Using Linear Model:&quot;</span>
 
 <span class="n">best_C</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">best_acc</span> <span class="o">=</span> <span class="mi">0</span>
@@ -11924,7 +11924,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1. Using Linear Kernel:
+<pre>1. Using Linear Model:
 While C = 0.01 , accuracy on validation data = 0.68625
 While C = 0.03 , accuracy on validation data = 0.68625
 While C = 0.1 , accuracy on validation data = 0.68625
@@ -11950,10 +11950,10 @@ Accuracy on test data =  0.973
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">##################################################################################</span>
-<span class="c1">#                              Using Gauussian Kernel                            #</span>
+<span class="c1">#                              Using Gaussian Kernel                             #</span>
 <span class="c1">##################################################################################</span>
 
-<span class="k">print</span> <span class="s2">&quot;2. Using Gauussian Kernel:&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;2. Using Gaussian Kernel:&quot;</span>
 
 <span class="n">best_C</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">best_sigma</span> <span class="o">=</span> <span class="bp">None</span>
@@ -11967,7 +11967,7 @@ Accuracy on test data =  0.973
     <span class="n">KK</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">scaleK</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],)),</span><span class="n">scaleK</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
     
     <span class="n">Kval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">utils</span><span class="o">.</span><span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">sigma</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span> <span class="ow">in</span> <span class="n">Xval</span> <span class="k">for</span> <span class="n">x2</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">Xval</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Kval</span><span class="p">)</span>
+<span class="c1">#     scaler = preprocessing.StandardScaler().fit(Kval)</span>
     <span class="n">scaleKval</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Kval</span><span class="p">)</span>
     <span class="n">KKval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">scaleKval</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],)),</span><span class="n">scaleKval</span><span class="o">.</span><span class="n">T</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
     
@@ -12003,8 +12003,8 @@ Accuracy on test data =  0.973
 
 <span class="c1"># test dataset</span>
 <span class="n">K_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">utils</span><span class="o">.</span><span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">best_sigma</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span> <span class="ow">in</span> <span class="n">X_test</span> <span class="k">for</span> <span class="n">x2</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">scaler_test</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">K_test</span><span class="p">)</span>
-<span class="n">scaleK_test</span> <span class="o">=</span> <span class="n">scaler_test</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">K_test</span><span class="p">)</span>
+<span class="c1"># scaler_test = preprocessing.StandardScaler().fit(K_test)</span>
+<span class="n">scaleK_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">K_test</span><span class="p">)</span>
 <span class="n">KK_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">scaleK_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],)),</span><span class="n">scaleK_test</span><span class="o">.</span><span class="n">T</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
 <span class="n">yy_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">yy_test</span><span class="p">[</span><span class="n">y_test</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -12026,7 +12026,7 @@ Accuracy on test data =  0.973
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2. Using Gauussian Kernel:
+<pre>2. Using Gaussian Kernel:
 While sigma = 0.01 , C = 0.01 , accuracy on validation data = 0.77625
 While sigma = 0.01 , C = 0.03 , accuracy on validation data = 0.77625
 While sigma = 0.01 , C = 0.1 , accuracy on validation data = 0.77625
@@ -12108,7 +12108,7 @@ Accuracy on test data =  0.831
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">##################################################################################</span>
-<span class="c1"># Concluded from above, the best model is to use linear kernel with C = 30       #</span>
+<span class="c1"># Concluded from above, the best model is to use linear model with C = 30        #</span>
 <span class="c1">##################################################################################</span>
 
 <span class="n">best_C</span> <span class="o">=</span> <span class="mi">30</span>
