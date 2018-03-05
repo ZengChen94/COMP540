@@ -133,8 +133,10 @@ def svm_loss_vectorized(theta, X, y, reg):
 
   scores = X.dot(theta)
   correct_scores = np.array([[scores[i][y[i]]] * K for i in range(m)])
-  Margin = scores - correct_scores + (scores != correct_scores) * delta
-  J = np.sum((Margin > 0) * Margin) / m + 0.5 * reg * np.sum(theta * theta)
+  margin = scores - correct_scores + (scores != correct_scores) * delta
+#   sumTmp = np.sum(margin > 0, axis=1)
+  sumTmp = np.sum((margin > 0) * margin)
+  J = sumTmp / m + 0.5 * reg * np.sum(theta * theta)
 
   #############################################################################
   #                             END OF YOUR CODE                              #
@@ -150,9 +152,10 @@ def svm_loss_vectorized(theta, X, y, reg):
   # to reuse some of the intermediate values that you used to compute the     #
   # loss.                                                                     #
   #############################################################################
-
-  tmp = np.multiply(X.T, np.sum(Margin > 0, axis=1)).T
-  dtheta = (Margin > 0).T.dot(X).T / m - (Margin == 0).T.dot(tmp).T / m + reg * theta
+  
+  sumTmp = np.sum(margin > 0, axis=1)
+  tmp = np.multiply(X.T, sumTmp).T
+  dtheta = (margin > 0).T.dot(X).T / m - (margin == 0).T.dot(tmp).T / m + reg * theta
 
   #############################################################################
   #                             END OF YOUR CODE                              #

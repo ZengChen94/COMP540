@@ -377,26 +377,44 @@ The best case: best_sigma = 30 , best_C = 0.01 , best_accuracy on training data 
 Accuracy on training data =  0.9878125
 Accuracy on test data =  0.831
 \end{verbatim}
-To conclude, we find the best model is to use Linear Model with C = 30. Therefore, I use this model to train the final model to get spam words with 20000 times iterations. And here are the result of testing accuracy and Top 15 spam words:
+To conclude, we find the best model is to use Linear Model with C = 30. Therefore, I use this model to train the final model to get spam words with 20000 times iterations. And here are the result of testing accuracy and Top 15 spam and ham words:
 \begin{verbatim}
-Accuracy on training data =  0.991875
+Accuracy on training data =  0.993125
 Accuracy on test data =  0.988
+
 Top 15 words predicted to be spam are:
 click
 remov
 our
-pleas
-basenumb
 nbsp
-guarante
-you
+basenumb
 free
 your
+will
+guarante
+pleas
+you
 here
+most
 visit
-hour
-websit
-below
+offer
+
+Top 15 words predicted to be ham are:
+wrote
+date
+the
+httpaddr
+url
+spamassassin
+re
+numbertnumb
+it
+thei
+user
+list
+my
+author
+prefer
 \end{verbatim}
 
 
@@ -412,7 +430,8 @@ lr 5.000000e-08 reg 5.000000e+04 train accuracy: 0.371776 val accuracy: 0.382000
 More detailed results can be found in the notebook submitted.
 
 \paragraph{\textbf{Answer 4E}}
-Firstly, let's compare the performance of softmax and multi-class SVM:
+Firstly, let's compare the run time and performance of softmax and multi-class SVM regression:
+\\ The run time of multi-class SVM regression is shorter than softmax.
 \\ The total prediction accuracy of softmax regression in the last assignment:
 \begin{verbatim}
 softmax on raw pixels final test set accuracy: 0.398700

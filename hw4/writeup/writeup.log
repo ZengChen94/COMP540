@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  4 MAR 2018 09:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  5 MAR 2018 14:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -682,29 +682,29 @@ racy on training data = 0.83[]
  []
 
 [6]
-Overfull \hbox (34.41412pt too wide) in paragraph at lines 411--411
+Overfull \hbox (34.41412pt too wide) in paragraph at lines 429--429
 []\T1/cmtt/m/n/10.95 lr 5.000000e-08 reg 5.000000e+04 train accuracy: 0.371776 
 val accuracy: 0.382000[] 
  []
 
-<./../softmax_theta.png, id=32, 597.23125pt x 381.425pt>
+[7] <./../softmax_theta.png, id=36, 597.23125pt x 381.425pt>
 File: ./../softmax_theta.png Graphic file (type png)
 
 <use ./../softmax_theta.png>
-Package pdftex.def Info: ./../softmax_theta.png used on input line 440.
+Package pdftex.def Info: ./../softmax_theta.png used on input line 459.
 (pdftex.def)             Requested size: 215.00308pt x 137.31288pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 435--443
+Underfull \hbox (badness 10000) in paragraph at lines 454--462
 
  []
 
-<./../multiclass_svm_theta.png, id=33, 433.62pt x 289.08pt>
+<./../multiclass_svm_theta.png, id=37, 433.62pt x 289.08pt>
 File: ./../multiclass_svm_theta.png Graphic file (type png)
 
 <use ./../multiclass_svm_theta.png>
-Package pdftex.def Info: ./../multiclass_svm_theta.png used on input line 446.
+Package pdftex.def Info: ./../multiclass_svm_theta.png used on input line 465.
 (pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
- [7] [8 <./../softmax_theta.png> <./../multiclass_svm_theta.png>] (./writeup.au
+ [8 <./../softmax_theta.png>] [9 <./../multiclass_svm_theta.png>] (./writeup.au
 x)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -728,10 +728,10 @@ live/2017/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/20
 mf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2017/texmf
 -dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2017/texmf-d
 ist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on writeup.pdf (8 pages, 211935 bytes).
+Output written on writeup.pdf (9 pages, 212500 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
+ 75 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

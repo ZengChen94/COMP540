@@ -12104,7 +12104,7 @@ Accuracy on test data =  0.831
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">##################################################################################</span>
@@ -12128,13 +12128,19 @@ Accuracy on test data =  0.831
 <span class="k">print</span> <span class="s2">&quot;Accuracy on test data = &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">yy_test</span><span class="p">,</span><span class="n">test_pred</span><span class="p">)</span>
 
 <span class="c1">##################################################################################</span>
-<span class="c1"># YOUR CODE HERE for finding top 15 words predicted to be spam                   #</span>
+<span class="c1"># YOUR CODE HERE for finding top 15 words predicted to be spam and ham           #</span>
 <span class="c1">##################################################################################</span>
 
 <span class="n">words</span><span class="p">,</span> <span class="n">inv_words</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_vocab_dict</span><span class="p">()</span>
+
 <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">best_svm</span><span class="o">.</span><span class="n">theta</span><span class="p">)[</span><span class="o">-</span><span class="mi">15</span><span class="p">:]</span>
 <span class="k">print</span> <span class="s2">&quot;Top 15 words predicted to be spam are:&quot;</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">best_svm</span><span class="o">.</span><span class="n">theta</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;Top 15 words predicted to be ham are:&quot;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1">##################################################################################</span>
@@ -12156,24 +12162,40 @@ Accuracy on test data =  0.831
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Accuracy on training data =  0.991875
+<pre>Accuracy on training data =  0.993125
 Accuracy on test data =  0.988
 Top 15 words predicted to be spam are:
 click
 remov
 our
-pleas
-basenumb
 nbsp
-guarante
-you
+basenumb
 free
 your
+will
+guarante
+pleas
+you
 here
+most
 visit
-hour
-websit
-below
+offer
+Top 15 words predicted to be ham are:
+wrote
+date
+the
+httpaddr
+url
+spamassassin
+re
+numbertnumb
+it
+thei
+user
+list
+my
+author
+prefer
 </pre>
 </div>
 </div>
