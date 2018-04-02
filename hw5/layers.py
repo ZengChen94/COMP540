@@ -281,44 +281,61 @@ def conv_backward_naive(dout, cache):
 
   x, theta, theta0, conv_param = cache
   m, C, H, W = x.shape
-  F, C, HH, WW = theta.shape
-  m, F, Hdout, Wdout = dout.shape
+  F, _, HH, WW = theta.shape
+  _, _, Hdout, Wdout = dout.shape
   pad = conv_param['pad']
   stride = conv_param['stride']
   
   H_out = 1 + (H + 2*pad - HH)/stride
   W_out = 1 + (W + 2*pad - WW)/stride  
-  
-  x_pad = np.pad(x, ((0,0), (0,0), (pad,pad), (pad,pad)), 'constant', constant_values=0)
-  
+
   dx = np.zeros((x.shape))
-#   dtheta = np.zeros((dtheta.shape))
   dtheta = np.zeros((F, C, HH, WW))
   dtheta0 = np.zeros((theta0.shape))
   
-  for i in range(F):
-    dtheta0[i] = np.sum(dout[:, i, :, :])
+#   x_pad = np.pad(x, ((0,0), (0,0), (pad,pad), (pad,pad)), 'constant', constant_values=0)
 
-  for i in range(F):
-    for j in range(C):
-      for k in range(HH):
-        for l in range(WW):
-          dtheta[i, j, k, l] = np.sum(dout[:, i, :, :] * x_pad[:, j, k : k+Hdout*stride : stride, l : l+Wdout*stride : stride])
+#   for i in range(F):
+#     dtheta0[i] = np.sum(dout[:, i, :, :])
+
+#   for i in range(F):
+#     for j in range(C):
+#       for k in range(HH):
+#         for l in range(WW):
+#           dtheta[i, j, k, l] = np.sum(dout[:, i, :, :] * x_pad[:, j, k : k+Hdout*stride : stride, l : l+Wdout*stride : stride])
   
-  for m_num in range(m):
-    for i in range(H):
-      for j in range(W):
-        for f in range(F):
-          for k in range(Hdout):
-            for l in range(Wdout):
-              mask1 = np.zeros_like(theta[f, :, :, :])
-              mask2 = np.zeros_like(theta[f, :, :, :])
-              if (i + pad - k * stride) < HH and (i + pad - k * stride) >= 0:
-                mask1[:, i + pad - k * stride, :] = 1.0
-              if (j + pad - l * stride) < WW and (j + pad - l * stride) >= 0:
-                mask2[:, :, j + pad - l * stride] = 1.0
-              theta_masked = np.sum(theta[f, :, :, :] * mask1 * mask2, axis=(1, 2))
-              dx[m_num, :, i, j] += dout[m_num, f, k, l] * theta_masked
+#   for m_num in range(m):
+#     for i in range(H):
+#       for j in range(W):
+#         for f in range(F):
+#           for k in range(Hdout):
+#             for l in range(Wdout):
+#               mask1 = np.zeros_like(theta[f, :, :, :])
+#               mask2 = np.zeros_like(theta[f, :, :, :])
+#               if (i + pad - k * stride) < HH and (i + pad - k * stride) >= 0:
+#                 mask1[:, i + pad - k * stride, :] = 1.0
+#               if (j + pad - l * stride) < WW and (j + pad - l * stride) >= 0:
+#                 mask2[:, :, j + pad - l * stride] = 1.0
+#               theta_masked = np.sum(theta[f, :, :, :] * mask1 * mask2, axis=(1, 2))
+#               dx[m_num, :, i, j] += dout[m_num, f, k, l] * theta_masked
+
+# inspired by https://github.com/MyHumbleSelf/cnn_assignments/blob/master/assignment2/cs231n/layers.py
+
+  padded = np.pad(x, [(0,0), (0,0), (pad,pad), (pad,pad)], 'constant')
+  padded_dx = np.pad(dx, [(0,0), (0,0), (pad,pad), (pad,pad)], 'constant')
+
+  for i in xrange(m):
+    for j in xrange(F):
+      for h in xrange(H_out):
+        hstart = h * stride
+        for w in xrange(W_out):
+          wstart = w * stride
+          window = padded[i, :, hstart:hstart+HH, wstart:wstart+WW]
+          dtheta[j] += window*dout[i, j, h, w]
+          dtheta0[j] += dout[i, j, h, w]
+          padded_dx[i, :, hstart:hstart+HH, wstart:wstart+WW] += theta[j] * dout[i, j, h, w]
+#   crop
+  dx = padded_dx[:, :, pad:pad+H, pad:pad+W]
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################

@@ -108,17 +108,16 @@ class ThreeLayerConvNet(object):
     ############################################################################
     # about 12 lines of code
     loss, dx = softmax_loss(scores, y)
-    loss += 0.5*self.reg*np.sum(theta1**2)
-    loss += 0.5*self.reg*np.sum(theta2**2)
-    loss += 0.5*self.reg*np.sum(theta3**2)
+    loss += 0.5*(self.reg*np.sum(theta1**2) + self.reg*np.sum(theta2**2) + self.reg*np.sum(theta3**2))
 
     dx_3, grads['theta3'], grads['theta3_0'] = affine_backward(dx, cache_3)
     dx_2, grads['theta2'], grads['theta2_0'] = affine_relu_backward(dx_3, cache_2)
     dx_1, grads['theta1'], grads['theta1_0'] = conv_relu_pool_backward(dx_2, cache_1)
 
+    grads['theta1'] += self.reg * self.params['theta1']
+    grads['theta2'] += self.reg * self.params['theta2']
     grads['theta3'] += self.reg*self.params['theta3']
-    grads['theta2'] += self.reg*self.params['theta2']
-    grads['theta1'] += self.reg*self.params['theta1']
+
     ############################################################################
     #                             END OF YOUR CODE                             #
     ############################################################################
